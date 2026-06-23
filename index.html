@@ -8,477 +8,687 @@
 </head>
 <body>
 
-  <!-- Top Progress Bar -->
-  <div class="progress-bar-container">
-    <div class="progress-bar"></div>
-  </div>
+  <!-- SECTION 1 — Sticky Navigation Bar -->
+  <header class="sticky-nav">
+    <div class="nav-logo">"LMSIS"</div>
+    <ul class="nav-links">
+      <li><a href="#abstract">"Abstract"</a></li>
+      <li><a href="#problem">"Problem"</a></li>
+      <li><a href="#method">"Method"</a></li>
+      <li><a href="#demo">"Demo"</a></li>
+      <li><a href="#results">"Results"</a></li>
+      <li><a href="#contributions">"Contributions"</a></li>
+      <li><a href="#team">"Team"</a></li>
+    </ul>
+  </header>
 
-  <!-- Right Progress Indicator Dots -->
-  <div class="nav-dots"></div>
-
-  <!-- Scrolling Presentation Container -->
-  <div id="presentation">
-
-    <!-- SECTION 1 — Title -->
-    <section id="slide-1">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-        <div class="blob blob-ir"></div>
-        <div class="blob blob-liver"></div>
-        <div class="blob blob-dual"></div>
+  <!-- SECTION 2 — Hero -->
+  <section id="hero">
+    <div class="blob-container">
+      <div class="blob blob-healthy" style="top: 15%; left: 10%;"></div>
+      <div class="blob blob-ir" style="top: 20%; right: 15%;"></div>
+      <div class="blob blob-liver" style="bottom: 15%; left: 20%;"></div>
+      <div class="blob blob-dual" style="bottom: 10%; right: 10%;"></div>
+    </div>
+    <div class="reveal">
+      <h1 style="font-size: 3rem; margin-bottom: 1rem; line-height: 1.2;">"Predictive Risk Intelligence for Metabolic Screening in Diabetes"</h1>
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 500;">"LMSIS — Latent Metabolic State Inference System"</h2>
+      <p style="font-size: 1.25rem; color: var(--muted); margin: 0 auto 2.5rem auto; max-width: 800px;">"A deep generative model that recovers hidden metabolic risk from routine blood biomarkers in adults with a normal body weight."</p>
+      <div class="hero-buttons">
+        <a href="[GITHUB_URL]" class="btn btn-glass">"View on GitHub"</a>
+        <a href="[REPORT_URL]" class="btn btn-glass">"Read the Full Report"</a>
+        <a href="#demo" class="btn btn-primary">"Try the Live Demo"</a>
       </div>
-      <div class="title-container animate-in">
-        <h1>"Predictive Risk Intelligence for Metabolic Screening in Diabetes"</h1>
-        <h2>"LMSIS — Latent Metabolic State Inference System"</h2>
-        <div class="title-placeholders">
-          <p>"[Presenter Name]"</p>
-          <p>"[Date]"</p>
-        </div>
-      </div>
-      <div class="scroll-indicator">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#EEF2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="hero-scroll" onclick="document.getElementById('abstract').scrollIntoView({behavior: 'smooth'})">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION 2 — The Paradox -->
-    <section id="slide-2">
-      <div class="blob-container">
-        <div class="blob blob-dual"></div>
-      </div>
-      <div class="paradox-container">
-        <div class="paradox-line">"Normal BMI. Normal cholesterol. No symptoms."</div>
-        <div class="paradox-line">"Their doctor sent them home."</div>
-        <div class="paradox-line">"They had severe liver disease."</div>
-      </div>
-    </section>
+  <!-- SECTION 3 — Abstract -->
+  <section id="abstract">
+    <div class="reveal" style="max-width: 720px; width: 100%;">
+      <p>"Millions of adults with a clinically normal body weight may carry hidden, concurrent insulin resistance and hepatic steatosis — a combination of metabolic dysfunction that routine screening, built around Body Mass Index, is structurally unable to detect. LMSIS is a semi-supervised deep generative model that learns a two-dimensional metabolic coordinate space directly from fourteen routine blood biomarkers, with each axis mathematically anchored to a real clinical reference measurement: insulin resistance and liver fat content. The system places every patient on this map, provides a calibrated confidence range specific to their risk group, and computes a route back toward a metabolically healthy position — translated into the exact biomarker changes that would move them there."</p>
+    </div>
+  </section>
 
-    <!-- SECTION 3 — Why BMI Misses This -->
-    <section id="slide-3">
-      <div class="blob-container">
-        <div class="blob blob-ir"></div>
-      </div>
-      <h1 class="section-title">Why BMI Misses This</h1>
-      <div class="silhouettes-container animate-in">
-        <div class="silhouette-box active">
-          <!-- Right Silhouette (With Visceral Fat) -->
-          <svg viewBox="0 0 100 200" class="silhouette-svg">
-            <circle cx="50" cy="22" r="11" />
-            <rect x="47" y="33" width="6" height="5" />
-            <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
-            <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
-            <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
-            <rect x="42" y="110" width="7" height="75" rx="3" />
-            <rect x="51" y="110" width="7" height="75" rx="3" />
-            <!-- Visceral fat indicator -->
-            <ellipse cx="50" cy="72" rx="13" ry="9" class="torso-glow" />
-          </svg>
-          <div class="visceral-pointer"></div>
-          <p>"BMI 22"</p>
+  <!-- SECTION 4 — The Problem -->
+  <section id="problem">
+    <div class="reveal" style="width: 100%; max-width: 1100px;">
+      <div class="two-col-layout">
+        <div class="col-left">
+          <h3>"Normal BMI. Normal cholesterol. No symptoms. Their doctor sent them home — but they had severe liver disease."</h3>
+          <p>"BMI measures total body weight. It cannot see where fat is stored, and storage location is what actually drives metabolic disease risk."</p>
         </div>
-        <div class="silhouette-box">
-          <!-- Left Silhouette (Healthy) -->
-          <svg viewBox="0 0 100 200" class="silhouette-svg">
-            <circle cx="50" cy="22" r="11" />
-            <rect x="47" y="33" width="6" height="5" />
-            <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
-            <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
-            <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
-            <rect x="42" y="110" width="7" height="75" rx="3" />
-            <rect x="51" y="110" width="7" height="75" rx="3" />
-          </svg>
-          <p>"BMI 22"</p>
+        <div class="col-right">
+          <div class="problem-silhouettes">
+            <!-- Left Silhouette (Healthy) -->
+            <div class="silhouette-wrap">
+              <svg viewBox="0 0 100 200" class="silhouette-svg">
+                <circle cx="50" cy="22" r="11" />
+                <rect x="47" y="33" width="6" height="5" />
+                <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
+                <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
+                <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
+                <rect x="42" y="110" width="7" height="75" rx="3" />
+                <rect x="51" y="110" width="7" height="75" rx="3" />
+              </svg>
+              <span class="mono-num">"BMI 22"</span>
+            </div>
+            <!-- Right Silhouette (With Hidden Visceral Fat) -->
+            <div class="silhouette-wrap">
+              <svg viewBox="0 0 100 200" class="silhouette-svg fat-variant">
+                <circle cx="50" cy="22" r="11" />
+                <rect x="47" y="33" width="6" height="5" />
+                <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
+                <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
+                <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
+                <rect x="42" y="110" width="7" height="75" rx="3" />
+                <rect x="51" y="110" width="7" height="75" rx="3" />
+                <!-- Visceral fat indicator -->
+                <ellipse cx="50" cy="72" rx="13" ry="9" class="visceral-glow" />
+              </svg>
+              <div class="tag-pointer"></div>
+              <div class="tag-label">"hidden visceral fat"</div>
+              <span class="mono-num">"BMI 22"</span>
+            </div>
+          </div>
         </div>
       </div>
-      <p class="caption animate-in delay-2">"BMI measures weight. It can't see where fat is hiding."</p>
-    </section>
-
-    <!-- SECTION 4 — The Hidden Problem -->
-    <section id="slide-4">
-      <div class="blob-container">
-        <div class="blob blob-dual"></div>
-      </div>
-      <h1 class="section-title">The Hidden Problem</h1>
-      <div class="problem-grid">
-        <div class="glass-card problem-card animate-in delay-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--ir-risk)" stroke-linecap="round" stroke-linejoin="round">
+      <div class="problem-cards-row">
+        <div class="glass-card problem-mini-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
             <line x1="12" y1="9" x2="12" y2="13"></line>
             <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>
-          <p>"Standard scores lose accuracy at normal weight"</p>
+          <p>"Clinical risk scores lose accuracy once body weight is restricted to the normal range"</p>
         </div>
-        <div class="glass-card problem-card animate-in delay-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--dual-risk)" stroke-linecap="round" stroke-linejoin="round">
+        <div class="glass-card problem-mini-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="23 4 12.45 14.55 7.55 9.65 1 16.2"></polyline>
             <polyline points="17 4 23 4 23 10"></polyline>
           </svg>
-          <p>"One major score gets it backwards entirely"</p>
+          <p>"One widely used score actively ranks higher-risk patients as healthier"</p>
         </div>
-        <div class="glass-card problem-card animate-in delay-3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--liver-risk)" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-          </svg>
-          <p>"AI models that work, but explain nothing"</p>
-        </div>
-        <div class="glass-card problem-card animate-in delay-4">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--dual-risk)" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
-          <p>"Risk estimates that fail the people who need them most"</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 5 — The Gap -->
-    <section id="slide-5">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-      </div>
-      <h1 class="section-title">The Gap</h1>
-      <div class="gap-list">
-        <div class="glass-card gap-row animate-in delay-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <p>"Built specifically for normal-weight patients"</p>
-        </div>
-        <div class="glass-card gap-row animate-in delay-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <p>"Risk scores tied to real medical tests"</p>
-        </div>
-        <div class="glass-card gap-row animate-in delay-3">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <p>"Reliable confidence — even for the riskiest patients"</p>
-        </div>
-        <div class="glass-card gap-row animate-in delay-4">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <p>"Plain explanations, not a black box"</p>
-        </div>
-      </div>
-      <p class="caption gold-caption animate-in delay-5">"No existing system does all four. This one does."</p>
-    </section>
-
-    <!-- SECTION 6 — How It Works -->
-    <section id="slide-6">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-        <div class="blob blob-liver"></div>
-      </div>
-      <h1 class="section-title">How It Works</h1>
-      <div class="pipeline-container">
-        <div class="pipeline-step">
-          <div class="step-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
-          </div>
-          <p>"Blood test values"</p>
-        </div>
-        <div class="pipeline-arrow"><div class="arrow-fill"></div></div>
-        <div class="pipeline-step">
-          <div class="step-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <position cx="12" cy="12" r="10"></position>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-          </div>
-          <p>"Pattern read as a whole"</p>
-        </div>
-        <div class="pipeline-arrow"><div class="arrow-fill"></div></div>
-        <div class="pipeline-step">
-          <div class="step-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-          </div>
-          <p>"Two risk scores"</p>
-        </div>
-        <div class="pipeline-arrow"><div class="arrow-fill"></div></div>
-        <div class="pipeline-step">
-          <div class="step-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-          </div>
-          <p>"Patient placed on a map"</p>
-        </div>
-        <div class="pipeline-arrow"><div class="arrow-fill"></div></div>
-        <div class="pipeline-step">
-          <div class="step-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-          </div>
-          <p>"Confidence + next steps"</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 7 — The Map -->
-    <section id="slide-7">
-      <div class="blob-container">
-        <div class="blob blob-dual"></div>
-      </div>
-      <h1 class="section-title">The Map</h1>
-      <div class="map-graphic animate-in">
-        <div class="map-quadrant quad-liver"></div>
-        <div class="map-quadrant quad-dual">
-          <div class="pulsing-pin">
-            <svg viewBox="0 0 24 24" class="pin-svg" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3" fill="#050810"></circle>
-            </svg>
-          </div>
-        </div>
-        <div class="map-quadrant quad-healthy"></div>
-        <div class="map-quadrant quad-ir"></div>
-      </div>
-      <p class="caption animate-in delay-3">"Every patient gets a location. Location reveals hidden risk."</p>
-    </section>
-
-    <!-- SECTION 8 — The Scale of the Problem -->
-    <section id="slide-8">
-      <div class="blob-container">
-        <div class="blob blob-ir"></div>
-      </div>
-      <h1 class="section-title">The Scale of the Problem</h1>
-      <div class="prevalence-container animate-in">
-        <div id="stat-prevalence" class="large-stat-glow mono-num">0.00</div>
-        <p class="caption">"(range reflects sample size — see full report for detail)"</p>
-      </div>
-    </section>
-
-    <!-- SECTION 9 — Live Demonstration -->
-    <section id="slide-9">
-      <div class="blob-container">
-        <div class="blob blob-dual"></div>
-      </div>
-      <div class="pulse-text">"Live demonstration"</div>
-    </section>
-
-    <!-- SECTION 10 — Putting It to the Test -->
-    <section id="slide-10">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-        <div class="blob blob-dual"></div>
-      </div>
-      <h1 class="section-title">Putting It to the Test</h1>
-      <div class="chart-container-10 animate-in">
-        <!-- Row 1: LMSIS -->
-        <div class="chart-row">
-          <div class="chart-bar-bg">
-            <div class="chart-bar teal-bar"></div>
-          </div>
-          <div class="chart-value">+0.542</div>
-        </div>
-        <!-- Row 2: RF -->
-        <div class="chart-row">
-          <div class="chart-bar-bg">
-            <div class="chart-bar grey-bar grey-bar-1"></div>
-          </div>
-          <div class="chart-value">+0.596</div>
-        </div>
-        <!-- Row 3: XGBoost -->
-        <div class="chart-row">
-          <div class="chart-bar-bg">
-            <div class="chart-bar grey-bar grey-bar-2"></div>
-          </div>
-          <div class="chart-value">+0.581</div>
-        </div>
-        <!-- Row 4: FLI -->
-        <div class="chart-row">
-          <div class="chart-bar-bg">
-            <div class="chart-bar grey-bar grey-bar-3"></div>
-          </div>
-          <div class="chart-value">+0.399</div>
-        </div>
-        <!-- Row 5: NAFLD-LFS (Negative direction) -->
-        <div class="chart-row">
-          <div class="chart-bar-bg">
-            <div class="chart-bar red-bar"></div>
-          </div>
-          <div class="chart-value left-label">-0.118</div>
-        </div>
-      </div>
-      <p class="caption animate-in delay-3">"One widely used method ranks sick patients as healthier."</p>
-    </section>
-
-    <!-- SECTION 11 — Reliable for the Riskiest Patients -->
-    <section id="slide-11">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-      </div>
-      <h1 class="section-title">Reliable for the Riskiest Patients</h1>
-      <div class="chart-container-11 animate-in">
-        <!-- Before -->
-        <div class="v-bar-container">
-          <div class="v-bar-value" id="stat-before">81.6%</div>
-          <div class="v-bar-bg">
-            <div class="v-bar grey v-bar-1"></div>
-          </div>
-          <div class="v-bar-label">Before</div>
-        </div>
-        <!-- After -->
-        <div class="v-bar-container">
-          <div class="v-bar-value" id="stat-after-val" style="color: var(--healthy); text-shadow: 0 0 10px rgba(0, 196, 125, 0.4);">90.4%</div>
-          <div class="v-bar-bg">
-            <div class="v-bar teal v-bar-2"></div>
-          </div>
-          <div class="v-bar-label" style="color: var(--healthy); font-weight: 700;">After</div>
-        </div>
-      </div>
-      <p class="caption animate-in delay-3">"Standard methods miss the riskiest patients. This fixes that."</p>
-    </section>
-
-    <!-- SECTION 12 — Proven Beyond the Training Data -->
-    <section id="slide-12">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-        <div class="blob blob-liver"></div>
-      </div>
-      <h1 class="section-title">Proven Beyond the Training Data</h1>
-      <div class="stat-cards-container">
-        <div class="glass-card stat-card animate-in delay-1">
+        <div class="glass-card problem-mini-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
           </svg>
-          <p>"Tested two years later"</p>
-          <div id="stat-temporal" class="mono-num">0.000</div>
+          <p>"Standard AI models give predictions nobody can explain"</p>
         </div>
-        <div class="glass-card stat-card blue-theme animate-in delay-2">
+        <div class="glass-card problem-mini-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          <p>"Tested on a different population group"</p>
-          <div id="stat-population" class="mono-num">0.000</div>
+          <p>"Off-the-shelf confidence estimates fail exactly the patients who need them most"</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION 13 — What We Built -->
-    <section id="slide-13">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
+  <!-- SECTION 5 — Related Work and the Gap -->
+  <section id="gap">
+    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
+      <p class="intro-sentence">"Several recent systems have approached pieces of this problem. None combine all four properties this system requires."</p>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>"System"</th>
+              <th>"Built for normal-weight patients"</th>
+              <th>"Risk axes tied to real clinical tests"</th>
+              <th>"Reliable for the riskiest subgroup"</th>
+              <th>"Explainable internals"</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"Wearable + blood biomarker models (2026)"</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+            </tr>
+            <tr>
+              <td>"Tree-based classifiers on national survey data (2025)"</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+            </tr>
+            <tr>
+              <td>"Biopsy-based clustering studies (2024)"</td>
+              <td><span class="dash">—</span></td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+            </tr>
+            <tr>
+              <td>"Causal representation learning on genetic data (2025)"</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+            </tr>
+            <tr class="highlight-row">
+              <td>"LMSIS (this work)"</td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+              <td>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <h1 class="section-title">What We Built</h1>
-      <div class="built-list">
-        <div class="glass-card built-row animate-in delay-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="5" r="3"></circle>
-            <line x1="12" y1="22" x2="12" y2="8"></line>
-            <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
-          </svg>
-          <p>"Risk scores anchored to real medical tests"</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — Method and System Architecture -->
+  <section id="method">
+    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
+      <p class="intro-para">"The system reads all fourteen blood values together as a single pattern, rather than checking each one against a normal range in isolation. From that pattern, it produces two coordinates — one standing in for insulin resistance, the other for liver fat — each mathematically locked to a real, independently measured clinical test, so the coordinates always increase in the same direction as the disease they represent."</p>
+      
+      <!-- System Architecture Diagram -->
+      <div class="architecture-diagram">
+        <!-- 1. Input Biomarkers -->
+        <div class="diag-node node-inputs">
+          <span>"14 blood biomarkers + age, sex, ancestry"</span>
         </div>
-        <div class="glass-card built-row animate-in delay-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
-          <p>"Reliable confidence ranges for the riskiest patients"</p>
+        
+        <!-- 2. Encoder -->
+        <div class="diag-node node-encoder">
+          <span>"Encoder"</span>
         </div>
-        <div class="glass-card built-row animate-in delay-3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-          </svg>
-          <p>"Plain explanations of how the model behaves"</p>
+        
+        <!-- 3. Latent Coordinate -->
+        <div class="diag-node node-latent">
+          <span>"2D metabolic coordinate"</span>
+          <div class="latent-circle-row">
+            <div class="latent-circle z1">z₁</div>
+            <div class="latent-circle z2">z₂</div>
+          </div>
         </div>
-        <div class="glass-card built-row animate-in delay-4">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        
+        <!-- 4. Outputs (Vertical Column) -->
+        <div class="diag-column">
+          <div class="diag-node node-anchor-ir">
+            <span>"Insulin-resistance anchor"</span>
+          </div>
+          <div class="diag-node node-anchor-stea">
+            <span>"Liver-fat anchor"</span>
+          </div>
+          <div class="diag-node node-decoder">
+            <span>"Decoder (reconstruction)"</span>
+          </div>
+        </div>
+        
+        <!-- 5. Secondary Outputs (Vertical Column) -->
+        <div class="diag-column">
+          <div class="diag-node node-calibration">
+            <span>"Per-group confidence calibration"</span>
+          </div>
+          <div class="diag-node node-route">
+            <span>"Route back to a healthy position"</span>
+          </div>
+        </div>
+
+        <!-- Inline SVG arrows that animate drawing on scroll -->
+        <svg class="diag-link-svg" viewBox="0 0 1050 350">
+          <!-- Input -> Encoder -->
+          <path id="path-1" class="link-line muted" d="M 190 175 L 235 175" />
+          <!-- Encoder -> Latent -->
+          <path id="path-2" class="link-line muted" d="M 345 175 L 385 175" />
+          
+          <!-- Latent -> Anchor IR (Top) -->
+          <path id="path-3" class="link-line amber" d="M 525 145 C 545 130, 560 90, 600 90" />
+          <!-- Latent -> Anchor Steatosis (Middle) -->
+          <path id="path-4" class="link-line blue" d="M 525 175 L 600 175" />
+          <!-- Latent -> Decoder (Bottom) -->
+          <path id="path-5" class="link-line muted" d="M 525 205 C 545 220, 560 260, 600 260" />
+          
+          <!-- Latent -> Calibration (Top Right) -->
+          <path id="path-6" class="link-line muted" d="M 525 155 C 555 125, 780 120, 830 120" />
+          <!-- Latent -> Route (Bottom Right) -->
+          <path id="path-7" class="link-line teal" d="M 525 195 C 555 225, 780 230, 830 230" />
+        </svg>
+      </div>
+
+      <!-- Technical Details Expander Pattern -->
+      <div class="toggle-trigger" onclick="toggleDetails()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+        <span>"+ Technical details"</span>
+      </div>
+      
+      <div class="expand-panel">
+        <div class="panel-content">
+          <p>"The architecture is a Dual-Anchored Semi-Supervised Identifiable Variational Autoencoder (DA-SS-iVAE). Identifiability follows from conditioning the latent prior on demographic covariates, per Khemakhem et al. (2020). Each anchor network is constrained to strictly positive weights via a Softplus reprojection, guaranteeing monotonicity between each coordinate and its clinical target. The steatosis anchor is trained semi-supervised through a binary availability mask, since imaging-derived liver-fat labels are only present for a subset of participants. Per-subgroup uncertainty is provided by Mondrian conformal prediction, stratified by phenotypic quadrant, directly addressing the subgroup coverage impossibility result of Barber et al. (2023). Intervention pathways are computed as geodesics on the Riemannian manifold induced by the decoder Jacobian, solved numerically and projected back to biomarker space."</p>
+          
+          <!-- Parameters Table using Icons for Keys -->
+          <table class="details-table">
+            <tbody>
+              <tr>
+                <td>
+                  <!-- 2D axes icon representing latent dimension -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                    <line x1="5" y1="19" x2="19" y2="19"></line>
+                    <line x1="5" y1="5" x2="5" y2="19"></line>
+                    <polyline points="19 19 15 15"></polyline>
+                  </svg>
+                  "2D metabolic coordinate"
+                </td>
+                <td>2 (fixed)</td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- Encoder/network icon representing hidden layer sizes -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                  </svg>
+                  "Encoder" / "Decoder (reconstruction)"
+                </td>
+                <td>[128, 64, 32] for all MLP components</td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- Weight scale icon representing loss weights -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                    <line x1="12" y1="3" x2="12" y2="21"></line>
+                    <line x1="6" y1="7" x2="18" y2="7"></line>
+                    <path d="M6 7A6 6 0 0 0 12 13A6 6 0 0 0 18 7"></path>
+                  </svg>
+                  "Insulin-resistance anchor" / "Liver-fat anchor" / "Decoder (reconstruction)"
+                </td>
+                <td>10.0 / 5.0 / 0.1</td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- Clock/calendar icon representing training epochs -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>"Route back to a healthy position"</span>
+                </td>
+                <td>150 (early stopping triggered at Epoch 70–80)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — Live Interactive Demo -->
+  <section id="demo">
+    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
+      <h2>"See it for yourself"</h2>
+      <p class="demo-desc">"Choose a patient profile below and watch where they land on the map. Each profile uses real, representative biomarker values."</p>
+      
+      <div class="demo-widget">
+        <!-- Profile Selection Column -->
+        <div class="demo-controls">
+          <button class="profile-pill pill-healthy" onclick="selectDemoProfile('healthy', this)">"Metabolically Healthy"</button>
+          <button class="profile-pill pill-ir" onclick="selectDemoProfile('ir', this)">"IR-Dominant"</button>
+          <button class="profile-pill pill-stea" onclick="selectDemoProfile('steatosis', this)">"Steatosis-Dominant"</button>
+          <button class="profile-pill pill-dual" onclick="selectDemoProfile('dual', this)">"Dual-Burden"</button>
+        </div>
+        
+        <!-- Live Map and Readout Display -->
+        <div class="demo-display">
+          <div class="demo-banner-box">
+            <div id="demo-banner" class="demo-banner">"Metabolically Healthy"</div>
+          </div>
+          
+          <!-- SVG Latent Map -->
+          <svg class="demo-map-svg" viewBox="0 0 400 400" id="demo-map">
+            <!-- Background quadrant overlays -->
+            <!-- Q2: Steatosis-Dominant (Top Left, Blue Tint) -->
+            <rect x="0" y="0" width="200" height="200" fill="var(--liver-risk)" opacity="0.04" />
+            <!-- Q1: Dual-Burden (Top Right, Red Tint) -->
+            <rect x="200" y="0" width="200" height="200" fill="var(--dual-risk)" opacity="0.04" />
+            <!-- Q3: Metabolically Healthy (Bottom Left, Green Tint) -->
+            <rect x="0" y="200" width="200" height="200" fill="var(--healthy)" opacity="0.04" />
+            <!-- Q4: IR-Dominant (Bottom Right, Yellow Tint) -->
+            <rect x="200" y="200" width="200" height="200" fill="var(--ir-risk)" opacity="0.04" />
+
+            <!-- Dashed reference lines -->
+            <line x1="200" y1="0" x2="200" y2="400" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="6,6" />
+            <line x1="0" y1="200" x2="400" y2="200" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="6,6" />
+
+            <!-- Coordinate axes labels -->
+            <text x="280" y="380" fill="var(--muted)" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="500">"Insulin resistance ->"</text>
+            <text x="15" y="120" fill="var(--muted)" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="500" transform="rotate(-90 15 120)">"Liver fat ^"</text>
+            
+            <!-- Population density cloud (static illustration dots) -->
+            <g id="population-scatter"></g>
+
+            <!-- Intervention pathway trajectory (dashed line) -->
+            <path id="demo-route-line" class="demo-route-path" fill="none" stroke="var(--healthy)" stroke-width="2.5" stroke-dasharray="5,5" d="" />
+
+            <!-- Safe zone marker -->
+            <g id="demo-safe-zone" style="opacity: 0; transition: opacity 0.5s;">
+              <circle cx="80" cy="320" r="10" fill="none" stroke="var(--healthy)" stroke-width="2" />
+              <circle cx="80" cy="320" r="4" fill="var(--healthy)" />
+              <text x="96" y="324" fill="var(--healthy)" font-size="11" font-weight="600">"safe zone"</text>
+            </g>
+
+            <!-- Trajectory Waypoint markers -->
+            <g id="demo-waypoint-group"></g>
+
+            <!-- Pulsing Pin -->
+            <g id="demo-pin-group" class="demo-pin" transform="translate(200, 200)">
+              <!-- Glow pulse circle -->
+              <circle cx="0" cy="0" r="15" fill="currentColor" opacity="0.15" class="demo-pin-glow" />
+              <!-- Small map-pin visual signature -->
+              <path d="M0 -12 C-5 -12 -9 -8 -9 -3 C-9 3 0 12 0 12 C0 12 9 3 9 -3 C9 -8 5 -12 0 -12 Z" fill="currentColor" />
+              <circle cx="0" cy="-3" r="3" fill="#050810" />
+            </g>
+          </svg>
+
+          <!-- Readout details panel -->
+          <div class="demo-readout-panel" id="demo-readout">
+            <div class="glass-card readout-card">
+              <span class="readout-label">"Insulin resistance ->"</span>
+              <span class="readout-val mono-num" id="readout-z1">0.00</span>
+            </div>
+            <div class="glass-card readout-card">
+              <span class="readout-label">"Liver fat ^"</span>
+              <span class="readout-val mono-num" id="readout-z2">0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="demo-widget-footer">
+        <p>"This is a simplified, illustrative preview using four representative profiles. The full clinical interface accepts a complete blood panel and computes a result specific to that exact patient."</p>
+        <a href="[DASHBOARD_URL]" class="btn btn-glass">"Open the full interactive dashboard"</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — Results -->
+  <section id="results">
+    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
+      <p class="intro-line">"Performance was evaluated against five widely used clinical scores and validated on data the model never saw during training."</p>
+      
+      <div class="results-top-row">
+        <!-- Results Glance Table -->
+        <div class="glass-card results-table-card">
+          <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">"Results at a glance"</h3>
+          <table class="results-glance-table">
+            <tbody>
+              <tr>
+                <td>"Liver-fat detection accuracy"</td>
+                <td>0.841 AUROC</td>
+              </tr>
+              <tr>
+                <td>"Reliability for the highest-risk subgroup"</td>
+                <td>90.4% (vs. 81.6% baseline)</td>
+              </tr>
+              <tr>
+                <td>"Performance on unseen, later-collected data"</td>
+                <td>ρ = 0.583</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Vertical bar chart -->
+        <div class="glass-card results-chart-card">
+          <!-- LMSIS -->
+          <div class="result-bar-row">
+            <div class="r-bar-label active">"LMSIS (this work)"</div>
+            <div class="r-bar-bg">
+              <div class="r-bar teal" style="width: 83.3%;">
+                <span class="r-bar-val">+0.542</span>
+              </div>
+            </div>
+          </div>
+          <!-- Random Forest -->
+          <div class="result-bar-row">
+            <div class="r-bar-label">"Tree-based classifiers on national survey data (2025)"</div>
+            <div class="r-bar-bg">
+              <div class="r-bar grey" style="width: 89.4%;">
+                <span class="r-bar-val">+0.581</span>
+              </div>
+            </div>
+          </div>
+          <!-- Biopsy Studies -->
+          <div class="result-bar-row">
+            <div class="r-bar-label">"Biopsy-based clustering studies (2024)"</div>
+            <div class="r-bar-bg">
+              <div class="r-bar grey" style="width: 61.4%;">
+                <span class="r-bar-val">+0.399</span>
+              </div>
+            </div>
+          </div>
+          <!-- Causal Representation -->
+          <div class="result-bar-row">
+            <div class="r-bar-label">"Causal representation learning on genetic data (2025)"</div>
+            <div class="r-bar-bg">
+              <div class="r-bar grey" style="width: 67.4%;">
+                <span class="r-bar-val">+0.438</span>
+              </div>
+            </div>
+          </div>
+          <!-- NAFLD-LFS (ranks backwards) -->
+          <div class="result-bar-row" style="position: relative; margin-top: 10px;">
+            <div class="r-bar-label">"Wearable + blood biomarker models (2026)"</div>
+            <div class="r-bar-bg">
+              <!-- Worst performing score pointing backwards -->
+              <div class="r-bar red" style="width: 18.2%;">
+                <span class="r-bar-val left-side">-0.118</span>
+              </div>
+            </div>
+          </div>
+          
+          <p style="font-size: 0.95rem; color: var(--muted); margin-top: 1rem; line-height: 1.4;">"One widely used clinical score ranks higher-risk patients as healthier than lower-risk ones — the opposite of its intended purpose."</p>
+        </div>
+      </div>
+
+      <div class="results-middle-row">
+        <!-- Before / After sub-group calibration comparison -->
+        <div class="glass-card results-subgroup-cal">
+          <div class="cal-bars-wrap">
+            <div class="cal-bar-container">
+              <span class="cal-bar-val mono-num">81.6%</span>
+              <div class="cal-bar-bg">
+                <div class="cal-bar grey" style="height: 81.6%;"></div>
+              </div>
+              <span class="cal-bar-lbl">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</span>
+            </div>
+            <div class="cal-bar-container">
+              <span class="cal-bar-val mono-num" style="color: var(--healthy); text-shadow: 0 0 10px rgba(0, 196, 125, 0.4);">90.4%</span>
+              <div class="cal-bar-bg">
+                <div class="cal-bar teal" style="height: 90.4%;"></div>
+              </div>
+              <span class="cal-bar-lbl" style="color: var(--healthy); font-weight: 600;">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</span>
+            </div>
+          </div>
+          <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.4; text-align: center;">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</p>
+        </div>
+
+        <!-- Side-finding card -->
+        <div class="glass-card results-sidefinding-card">
+          <h4>"An interesting side-finding"</h4>
+          <p>"Symbolic regression applied to the model's internal mapping recovered a simple closed-form expression showing that cardiovascular risk rises sharply only when both coordinates are elevated together — not from either one alone. The model discovered this structure on its own; it was not built in by hand."</p>
+        </div>
+      </div>
+
+      <!-- Tested beyond training data row -->
+      <div class="tested-cards-row">
+        <div class="glass-card tested-card">
+          <span style="font-size: 0.95rem; font-weight: 600; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em;">"Tested beyond the training data"</span>
+          <p>"Evaluated two years after training, on a separate survey cycle"</p>
+          <div id="stat-temporal" class="mono-num" style="font-size: 2.2rem; color: var(--healthy); font-weight: 700;">0.000</div>
+        </div>
+        <div class="glass-card tested-card blue-theme">
+          <span style="font-size: 0.95rem; font-weight: 600; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em;">"Tested beyond the training data"</span>
+          <p>"Evaluated on an independent demographic subgroup"</p>
+          <div id="stat-population" class="mono-num" style="font-size: 2.2rem; color: var(--liver-risk); font-weight: 700;">0.000</div>
+        </div>
+      </div>
+
+      <!-- National Prevalence Estimate Section -->
+      <div class="prevalence-block">
+        <div id="stat-prevalence" class="prevalence-glow mono-num" style="font-weight: 700;">0.00</div>
+        <p class="caption" style="font-size: 1.05rem; color: var(--muted); max-width: 650px; line-height: 1.5;">"(this range reflects the limits of the underlying survey sample — see the full report for the complete uncertainty analysis)"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9 — Validation and Testing -->
+  <section id="validation">
+    <div class="reveal" style="width: 100%; max-width: 1100px;">
+      <div class="validation-grid">
+        <div class="glass-card validation-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
-          <p>"A complete, tested, working system"</p>
+          <p>"18 automated tests verifying core model behavior, all passing"</p>
+        </div>
+        <div class="glass-card validation-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="23 4 12.45 14.55 7.55 9.65 1 16.2"></polyline>
+            <polyline points="17 4 23 4 23 10"></polyline>
+          </svg>
+          <p>"Evaluated with fixed random seeds across multiple independent runs for reproducibility"</p>
+        </div>
+        <div class="glass-card validation-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          <p>"Full source code openly available for inspection and replication"</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION 14 — Honest About the Limits -->
-    <section id="slide-14">
-      <div class="blob-container">
-        <div class="blob blob-ir"></div>
-        <div class="blob blob-healthy"></div>
-      </div>
-      <h1 class="section-title">Honest About the Limits</h1>
-      <div class="limits-half animate-in delay-1">
-        <div class="half-label">"What we don't yet know"</div>
-        <div class="limits-list">
-          <div class="limit-item">"Built from a single national data source"</div>
-          <div class="limit-item">"A one-time snapshot, not tracked over time"</div>
-          <div class="limit-item">"Not a diagnostic device"</div>
+  <!-- SECTION 10 — Key Contributions -->
+  <section id="contributions">
+    <div class="reveal" style="width: 100%; max-width: 950px;">
+      <div class="contributions-list">
+        <div class="glass-card contribution-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <p>"A generative model whose internal coordinates are mathematically anchored to real, independently verifiable clinical measurements, rather than left as an unexplainable black box."</p>
+        </div>
+        <div class="glass-card contribution-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <p>"A calibration method that restores reliable confidence estimates specifically for the highest-risk patient subgroup, where standard methods are shown to fail."</p>
+        </div>
+        <div class="glass-card contribution-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <p>"An interpretability layer that extracts plain mathematical formulas describing how the model's internal coordinates relate to real biomarkers."</p>
+        </div>
+        <div class="glass-card contribution-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <p>"A complete, tested, end-to-end research system — from data pipeline through model to an interactive clinical interface."</p>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="limits-half animate-in delay-3">
-        <div class="half-label">"What's next"</div>
-        <div class="limits-list">
-          <div class="limit-item">"Test on completely independent data"</div>
-          <div class="limit-item">"Track real patients over time"</div>
-          <div class="limit-item">"Expand to more population groups"</div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION 15 — Closing -->
-    <section id="slide-15">
-      <div class="blob-container">
-        <div class="blob blob-healthy"></div>
-        <div class="blob blob-ir"></div>
-        <div class="blob blob-liver"></div>
-        <div class="blob blob-dual"></div>
-      </div>
-      <div class="closing-container animate-in">
-        <div class="closing-title">"Normal BMI is not metabolic health."</div>
-        <div class="closing-subtitle">"We can show you where the patient actually is — and the route back."</div>
-        <div class="badges-row">
-          <div class="glass-card badge-pill">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span>"Tested"</span>
-          </div>
-          <div class="glass-card badge-pill">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
-            </svg>
-            <span>"Reproducible"</span>
-          </div>
-          <div class="glass-card badge-pill">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="16.5 9.4 7.5 4.21 7.5 14.58 16.5 19.79 16.5 9.4"></polyline>
-              <polyline points="7.5 9.4 16.5 4.21 16.5 14.58 7.5 19.79 7.5 9.4"></polyline>
-              <polyline points="7.5 4.21 16.5 4.21 16.5 9.4 7.5 9.4 7.5 4.21"></polyline>
-            </svg>
-            <span>"Open Source"</span>
-          </div>
+  <!-- SECTION 11 — Limitations and Future Work -->
+  <section id="limits">
+    <div class="reveal" style="width: 100%; max-width: 1100px;">
+      <div class="limits-grid">
+        <!-- Left: What we don't yet know -->
+        <div class="glass-card limits-card left-card">
+          <h3>"What we don't yet know"</h3>
+          <ul>
+            <li>"All data comes from a single national health survey."</li>
+            <li>"Every measurement is a one-time snapshot, not tracked over time."</li>
+            <li>"This is a research prototype, not a diagnostic device."</li>
+          </ul>
         </div>
-        <div class="final-thankyou">"Thank you. Questions?"</div>
+        
+        <!-- Right: What's next -->
+        <div class="glass-card limits-card right-card">
+          <h3>"What's next"</h3>
+          <ul>
+            <li>"Validation on a fully independent, separately collected cohort."</li>
+            <li>"Tracking real patients over time to test predictive value."</li>
+            <li>"Expanding validation across a wider range of population groups."</li>
+          </ul>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
+  <!-- SECTION 12 — Team and Acknowledgements -->
+  <section id="team">
+    <div class="reveal team-block">
+      <div class="names">"[Names]"</div>
+      <div class="ack">"[Acknowledgements]"</div>
+    </div>
+  </section>
+
+  <!-- SECTION 13 — Footer -->
+  <footer>
+    <div class="footer-subtitle">"LMSIS — built for the intersection of clinical insight and computational rigor."</div>
+    <ul class="footer-links">
+      <li><a href="[GITHUB_URL]">"GitHub"</a></li>
+      <li><a href="[REPORT_URL]">"Full Report"</a></li>
+      <li><a href="[CONTACT_URL]">"Contact"</a></li>
+    </ul>
+  </footer>
+
+  <!-- Back to top button -->
+  <div class="back-to-top" id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
   </div>
 
   <script src="script.js"></script>
