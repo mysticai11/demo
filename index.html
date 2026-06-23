@@ -308,7 +308,7 @@
                   </svg>
                   "2D metabolic coordinate"
                 </td>
-                <td>2 (fixed)</td>
+                <td>2 (fixed latent dimension)</td>
               </tr>
               <tr>
                 <td>
@@ -321,7 +321,7 @@
                   </svg>
                   "Encoder" / "Decoder (reconstruction)"
                 </td>
-                <td>[128, 64, 32] for all MLP components</td>
+                <td>[128, 64, 32] (hidden layer sizes)</td>
               </tr>
               <tr>
                 <td>
@@ -333,7 +333,7 @@
                   </svg>
                   "Insulin-resistance anchor" / "Liver-fat anchor" / "Decoder (reconstruction)"
                 </td>
-                <td>10.0 / 5.0 / 0.1</td>
+                <td>10.0 / 5.0 / 0.1 (loss weights)</td>
               </tr>
               <tr>
                 <td>
@@ -344,7 +344,7 @@
                   </svg>
                   <span>"Route back to a healthy position"</span>
                 </td>
-                <td>150 (early stopping triggered at Epoch 70–80)</td>
+                <td>150 (training epochs)</td>
               </tr>
             </tbody>
           </table>
@@ -524,23 +524,21 @@
       <div class="results-middle-row">
         <!-- Before / After sub-group calibration comparison -->
         <div class="glass-card results-subgroup-cal">
-          <div class="cal-bars-wrap">
+          <div class="cal-bars-wrap" style="justify-content: center; gap: 6rem;">
             <div class="cal-bar-container">
               <span class="cal-bar-val mono-num">81.6%</span>
               <div class="cal-bar-bg">
                 <div class="cal-bar grey" style="height: 81.6%;"></div>
               </div>
-              <span class="cal-bar-lbl">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</span>
             </div>
             <div class="cal-bar-container">
               <span class="cal-bar-val mono-num" style="color: var(--healthy); text-shadow: 0 0 10px rgba(0, 196, 125, 0.4);">90.4%</span>
               <div class="cal-bar-bg">
                 <div class="cal-bar teal" style="height: 90.4%;"></div>
               </div>
-              <span class="cal-bar-lbl" style="color: var(--healthy); font-weight: 600;">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</span>
             </div>
           </div>
-          <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.4; text-align: center;">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</p>
+          <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.4; text-align: center; margin-top: 1.5rem;">"Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability."</p>
         </div>
 
         <!-- Side-finding card -->
