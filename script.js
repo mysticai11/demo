@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Show/hide back to top button after scrolling past hero section (approx 600px)
+    // Show/hide back to top button after scrolling past hero section
     if (window.scrollY > 500) {
       backToTopBtn.classList.add('visible');
     } else {
@@ -87,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resultsAnimated) return;
     resultsAnimated = true;
 
-    // Trigger prevalence count-up: 23.91 million
-    const prevalenceStat = document.getElementById('stat-prevalence');
-    if (prevalenceStat) {
-      animateCountUp(prevalenceStat, 0.00, 23.91, 2000, 2, '', ' million');
+    // Trigger prevalence percentage count-up
+    const prevalencePct = document.getElementById('stat-prev-pct');
+    if (prevalencePct) {
+      animateCountUp(prevalencePct, 0.00, 29.89, 2000, 2);
     }
 
     // Trigger OOD validation stats
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       animateCountUp(populationStat, 0.000, 0.557, 1600, 3, 'ρ = ');
     }
 
-    // Add visible class to charts inside results section
+    // Add visible class to charts and subgroup calibration inside results section
     const chartCard = document.querySelector('.results-chart-card');
     if (chartCard) {
       chartCard.classList.add('visible');
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 4. Section 6 Technical Details Panel Toggling ---
+  // --- 4. Technical Details Panel Toggling ---
   window.toggleDetails = function() {
     const trigger = document.querySelector('.toggle-trigger');
     const panel = document.querySelector('.expand-panel');
@@ -136,92 +136,143 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // --- 5. Section 7 VAE Map Demo Widget Logic ---
-  const profiles = {
-    healthy: {
-      name: 'Metabolically Healthy',
-      color: 'var(--healthy)',
-      z1: -0.85,
-      z2: -0.92,
-      x: 115,
-      y: 292,
-      hasPath: false
-    },
-    ir: {
-      name: 'IR-Dominant',
-      color: 'var(--ir-risk)',
-      z1: 1.25,
-      z2: -0.65,
-      x: 325,
-      y: 265,
-      hasPath: true,
-      path: 'M 325 265 C 240 285, 180 300, 80 320',
-      safeZoneX: 80,
-      safeZoneY: 320,
-      waypoint: { x: 230, y: 285, label: '"Triglycerides ↓"' }
-    },
-    steatosis: {
-      name: 'Steatosis-Dominant',
-      color: 'var(--liver-risk)',
-      z1: -0.55,
-      z2: 1.35,
-      x: 145,
-      y: 65,
-      hasPath: true,
-      path: 'M 145 65 C 130 170, 110 220, 80 320',
-      safeZoneX: 80,
-      safeZoneY: 320,
-      waypoint: { x: 130, y: 170, label: '"Triglycerides ↓"' }
-    },
-    dual: {
-      name: 'Dual-Burden',
-      color: 'var(--dual-risk)',
-      z1: 1.45,
-      z2: 1.20,
-      x: 345,
-      y: 80,
-      hasPath: true,
-      path: 'M 345 80 C 260 160, 180 220, 80 320',
-      safeZoneX: 80,
-      safeZoneY: 320,
-      waypoint: { x: 260, y: 160, label: '"Triglycerides ↓"' }
+  // --- 5. FAQ Accordion Expand/Collapse ---
+  const faqCards = document.querySelectorAll('.faq-card');
+  window.toggleFaq = function(index) {
+    const card = faqCards[index];
+    const isOpen = card.classList.contains('open');
+    
+    // Close other open FAQ cards
+    faqCards.forEach(c => {
+      c.classList.remove('open');
+      c.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+
+    if (!isOpen) {
+      card.classList.add('open');
+      const answer = card.querySelector('.faq-answer');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
     }
   };
 
-  // Generate illustrative population density dots
+  // Bind click handlers to FAQ headers
+  document.querySelectorAll('.faq-question').forEach((elem, index) => {
+    elem.addEventListener('click', () => {
+      toggleFaq(index);
+    });
+  });
+
+  // --- 6. Live Interactive Demo Widget Logic ---
+  // Mapped to 640x400 map viewBox:
+  // z1 linear mapping from [-3.5, 3.5] to [60, 580]
+  // z2 linear mapping from [-3.5, 3.5] to [350, 50] (inverted)
+  const profiles = {
+    healthy: {
+      name: 'Healthy',
+      desc: 'Metabolically healthy normal-weight profile — all biomarkers within baseline limits.',
+      color: 'var(--healthy)',
+      score: 1.4,
+      liverFat: 210,
+      risk: 8,
+      x: 216,
+      y: 256,
+      hasPath: false
+    },
+    ir: {
+      name: 'IR-dominant',
+      desc: 'Insulin-resistance dominant metabolic risk — elevated fasting insulin.',
+      color: 'var(--ir-risk)',
+      score: 3.6,
+      liverFat: 228,
+      risk: 54,
+      x: 439,
+      y: 226,
+      hasPath: true,
+      waypoint: 'Fasting insulin lower',
+      bowOffset: 40
+    },
+    steatosis: {
+      name: 'Steatosis-dominant',
+      desc: 'Hepatic steatosis dominant metabolic risk — elevated triglycerides.',
+      color: 'var(--liver-risk)',
+      score: 1.6,
+      liverFat: 268,
+      risk: 58,
+      x: 275,
+      y: 127,
+      hasPath: true,
+      waypoint: 'Triglycerides lower',
+      bowOffset: -40
+    },
+    dual: {
+      name: 'Dual-burden',
+      desc: 'Dual-burden insulin resistance and steatosis risk — concurrent elevations across both axes.',
+      color: 'var(--dual-risk)',
+      score: 3.3,
+      liverFat: 286,
+      risk: 82,
+      x: 446,
+      y: 123,
+      hasPath: true,
+      waypoint: 'Triglycerides lower',
+      bowOffset: 50
+    }
+  };
+
+  // Generate illustrative population density dots on the map
   const scatterGroup = document.getElementById('population-scatter');
   if (scatterGroup) {
-    const numDots = 90;
-    // Generate dots clustered mostly in the healthy quadrant (bottom-left, around cx=100, cy=300)
+    const numDots = 55;
     for (let i = 0; i < numDots; i++) {
-      let cx, cy;
-      // Normal/Gaussian distribution approximation
-      const u1 = Math.random();
-      const u2 = Math.random();
-      const randStd = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-      
-      if (Math.random() < 0.70) {
-        // Clustered in healthy quadrant
-        cx = 100 + randStd * 45;
-        cy = 300 + (Math.random() - 0.5) * 80;
+      let x, y;
+      if (Math.random() < 0.65) {
+        // Clustered towards the healthy zone (bottom-left, center around 216, 256)
+        x = 216 + (Math.random() - 0.5) * 160;
+        y = 256 + (Math.random() - 0.5) * 100;
       } else {
-        // Spread thin over other quadrants
-        cx = Math.random() * 360 + 20;
-        cy = Math.random() * 360 + 20;
+        // Spread thin over the whole map
+        x = 40 + Math.random() * 560;
+        y = 50 + Math.random() * 300;
       }
-
-      // Constrain coordinates within SVG bounds
-      cx = Math.max(15, Math.min(385, cx));
-      cy = Math.max(15, Math.min(385, cy));
+      // Constrain coordinates within bounds
+      x = Math.max(50, Math.min(590, x));
+      y = Math.max(60, Math.min(340, y));
 
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', cx.toFixed(1));
-      circle.setAttribute('cy', cy.toFixed(1));
+      circle.setAttribute('cx', x.toFixed(1));
+      circle.setAttribute('cy', y.toFixed(1));
       circle.setAttribute('r', (Math.random() * 1.5 + 1.5).toFixed(1));
       circle.setAttribute('fill', 'var(--muted)');
       circle.setAttribute('opacity', (Math.random() * 0.15 + 0.15).toFixed(2));
       scatterGroup.appendChild(circle);
     }
+  }
+
+  // Bezier trajectory mathematics (quadratic Bezier path and its midpoint)
+  function getBezierPath(startX, startY, endX, endY, offsetVal) {
+    const midX = (startX + endX) / 2;
+    const midY = (startY + endY) / 2;
+    const dx = endX - startX;
+    const dy = endY - startY;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len === 0) return { path: '', midX, midY };
+    
+    const px = -dy / len;
+    const py = dx / len;
+    
+    // Offset control point to bow outward
+    const controlX = midX + px * offsetVal;
+    const controlY = midY + py * offsetVal;
+    
+    // B(0.5) on quadratic Bezier is (P0 + 2*P1 + P2)/4
+    const curveMidX = (startX + 2 * controlX + endX) / 4;
+    const curveMidY = (startY + 2 * controlY + endY) / 4;
+    
+    return {
+      path: `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`,
+      midX: curveMidX,
+      midY: curveMidY
+    };
   }
 
   // Handle Demo Patient Selection
@@ -239,28 +290,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Update Title Banner above map
     const banner = document.getElementById('demo-banner');
-    banner.className = 'demo-banner visible';
-    banner.textContent = profile.name;
     banner.style.color = profile.color;
+    banner.textContent = `${profile.name} — ${profile.desc}`;
 
     // 2. Animate Map Pin
     const pinGroup = document.getElementById('demo-pin-group');
+    pinGroup.style.opacity = '1';
     pinGroup.setAttribute('transform', `translate(${profile.x}, ${profile.y})`);
     pinGroup.style.color = profile.color;
 
-    // 3. Update Readout coordinates (animated count-up/down)
-    const z1Readout = document.getElementById('readout-z1');
-    const z2Readout = document.getElementById('readout-z2');
-    
-    // Read current displayed values
-    const currentZ1 = parseFloat(z1Readout.textContent) || 0.00;
-    const currentZ2 = parseFloat(z2Readout.textContent) || 0.00;
-    
-    animateCountUp(z1Readout, currentZ1, profile.z1, 800, 2);
-    animateCountUp(z2Readout, currentZ2, profile.z2, 800, 2);
+    // 3. Update Metric Cards (animated count-up/down)
+    const scoreVal = document.getElementById('readout-score');
+    const liverFatVal = document.getElementById('readout-liverfat');
+    const riskVal = document.getElementById('readout-risk');
 
-    // Fade in readout panel
-    document.getElementById('demo-readout').classList.add('visible');
+    const currentScore = parseFloat(scoreVal.textContent) || 0.0;
+    const currentLiverFat = parseInt(liverFatVal.textContent) || 0;
+    const currentRisk = parseInt(riskVal.textContent) || 0;
+
+    animateCountUp(scoreVal, currentScore, profile.score, 600, 1);
+    animateCountUp(liverFatVal, currentLiverFat, profile.liverFat, 600, 0, '', ' mg/dL');
+    animateCountUp(riskVal, currentRisk, profile.risk, 600, 0, '', '%');
 
     // 4. Handle Trajectory Route Drawing & Safe Zone Visibility
     const routePath = document.getElementById('demo-route-line');
@@ -273,65 +323,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (profile.hasPath) {
       // Show safe zone marker
-      safeZone.setAttribute('transform', `translate(0, 0)`);
       safeZone.style.opacity = '1';
 
-      // Set path definition
-      routePath.setAttribute('d', profile.path);
-      routePath.style.stroke = profile.color;
+      // Compute curved route to safe zone (216, 256)
+      const pathInfo = getBezierPath(profile.x, profile.y, 216, 256, profile.bowOffset);
       
-      // Compute path length to draw dynamically
-      const pathLength = routePath.getTotalLength();
-      routePath.style.strokeDasharray = pathLength;
-      routePath.style.strokeDashoffset = pathLength;
-      
-      // Trigger a reflow
-      routePath.getBoundingClientRect();
-      
-      // Draw path line
-      routePath.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
-      routePath.style.strokeDashoffset = '0';
+      routePath.setAttribute('d', pathInfo.path);
+      routePath.style.stroke = 'var(--healthy)';
+      routePath.classList.add('visible');
 
-      // After path draws (~1200ms), reveal waypoints
+      // Create waypoint dot
+      const wCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      wCircle.setAttribute('cx', pathInfo.midX);
+      wCircle.setAttribute('cy', pathInfo.midY);
+      wCircle.setAttribute('r', '5');
+      wCircle.setAttribute('fill', 'var(--text)');
+      wCircle.setAttribute('stroke', 'var(--healthy)');
+      wCircle.setAttribute('stroke-width', '2');
+      
+      // Create waypoint label text
+      const wText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      wText.setAttribute('x', pathInfo.midX + 12);
+      wText.setAttribute('y', pathInfo.midY + 4);
+      wText.setAttribute('fill', 'var(--text)');
+      wText.setAttribute('font-size', '11');
+      wText.setAttribute('font-family', "'Inter', sans-serif");
+      wText.setAttribute('font-weight', '600');
+      wText.textContent = profile.waypoint;
+
+      waypointGroup.appendChild(wCircle);
+      waypointGroup.appendChild(wText);
+
+      // Fade in waypoint after a tiny delay
       setTimeout(() => {
-        if (profile.waypoint) {
-          // Render waypoint dot
-          const wCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          wCircle.setAttribute('cx', profile.waypoint.x);
-          wCircle.setAttribute('cy', profile.waypoint.y);
-          wCircle.setAttribute('r', '5');
-          wCircle.setAttribute('fill', 'var(--text)');
-          wCircle.setAttribute('stroke', profile.color);
-          wCircle.setAttribute('stroke-width', '2');
-          
-          // Render waypoint text label
-          const wText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          wText.setAttribute('x', profile.waypoint.x + 12);
-          wText.setAttribute('y', profile.waypoint.y + 4);
-          wText.setAttribute('fill', 'var(--text)');
-          wText.setAttribute('font-size', '11');
-          wText.setAttribute('font-family', "'Inter', sans-serif");
-          wText.setAttribute('font-weight', '500');
-          wText.textContent = profile.waypoint.label.replace(/"/g, ''); // strip outer quotes for visual render
-
-          waypointGroup.appendChild(wCircle);
-          waypointGroup.appendChild(wText);
-
-          // Fade in waypoint
-          waypointGroup.style.transition = 'opacity 0.5s ease';
-          waypointGroup.style.opacity = '1';
-        }
-      }, 1000);
+        waypointGroup.style.transition = 'opacity 0.5s ease';
+        waypointGroup.style.opacity = '1';
+      }, 400);
 
     } else {
       // Hide route path & safe zone
-      routePath.style.transition = 'none';
-      routePath.style.strokeDashoffset = '400';
+      routePath.classList.remove('visible');
       routePath.setAttribute('d', '');
       safeZone.style.opacity = '0';
     }
   };
-
-  // Initially select nothing, or select Metabolically Healthy to show layout active
-  // Let's keep it unselected as requested by default
 });
