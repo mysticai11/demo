@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LMSIS Final Presentation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@700&family=Poppins:wght@700&display=swap');
+
+    :root {
+      --bg: #050810;
+      --panel: #0C111E;
+      --border: #1C2940;
+      --text: #EEF2FF;
+      --muted: #4A6380;
+      --teal: #00C47D;
+      --amber: #F5A623;
+      --blue: #3D8EF8;
+      --red: #E8394A;
+      --gold: #C8A84B;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      transform-origin: center center;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      padding: 60px; /* roughly 8% margins */
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: rgba(12, 17, 30, 0.7);
+      border: 1px solid rgba(28, 41, 64, 0.5);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      padding: 30px;
+    }
+
+    /* Blobs */
+    .blobs {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+    }
+
+    /* Icon Badges */
+    .icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .icon-badge::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.15;
+    }
+    
+    /* CSS Native Icons */
+    .icon {
+      position: relative;
+      display: inline-block;
+    }
+    .icon-pin {
+      width: 16px; height: 16px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: currentColor;
+      margin-bottom: 4px;
+    }
+    .icon-pin::after {
+      content:''; position:absolute; top:4px; left:4px;
+      width:8px; height:8px; background:var(--bg); border-radius:50%;
+    }
+    .icon-droplet {
+      width: 16px; height: 16px;
+      border-radius: 0 50% 50% 50%;
+      transform: rotate(45deg);
+      background: currentColor;
+      margin-bottom: 2px;
+    }
+    .icon-chart {
+      width: 20px; height: 18px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .icon-chart div {
+      width: 4px; background: currentColor;
+    }
+    .icon-shield {
+      width: 18px; height: 20px;
+      background: currentColor;
+      border-radius: 2px 2px 10px 10px;
+    }
+    .icon-clock {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      box-sizing: border-box;
+    }
+    .icon-clock::after {
+      content:''; position:absolute; top:3px; left:7px;
+      width:2px; height:5px; background:currentColor;
+    }
+    .icon-clock::before {
+      content:''; position:absolute; top:7px; left:7px;
+      width:5px; height:2px; background:currentColor;
+    }
+    .icon-check {
+      width: 8px; height: 16px;
+      border-bottom: 3px solid currentColor;
+      border-right: 3px solid currentColor;
+      transform: rotate(45deg);
+      margin-bottom: 4px;
+    }
+
+    /* Common Utilities */
+    .center-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+    }
+    .text-muted { color: var(--muted); }
+    .text-teal { color: var(--teal); }
+    .text-amber { color: var(--amber); }
+    .text-blue { color: var(--blue); }
+    .text-red { color: var(--red); }
+    .text-gold { color: var(--gold); }
+    
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Slide specific adjustments */
+    #slide-1 h1 { font-size: 52px; line-height: 1.2; margin-bottom: 20px; }
+    #slide-1 h2 { font-size: 32px; color: var(--teal); margin-bottom: 60px; }
+    #slide-1 p { font-size: 24px; color: var(--muted); margin: 5px 0; }
+    
+    #slide-2 h1 { font-size: 48px; margin-bottom: 30px; }
+
+    /* Custom layout for Slide 6 (Flow) */
+    .flow-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 80px;
+      width: 100%;
+    }
+    .flow-box {
+      width: 180px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .flow-arrow {
+      color: var(--muted);
+      font-size: 30px;
+    }
+    
+    /* Footer */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-size: 16px;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="blobs">
+        <div class="blob" style="width:500px; height:500px; background:var(--teal); top:-100px; left:-100px;"></div>
+        <div class="blob" style="width:600px; height:600px; background:var(--blue); bottom:-200px; right:-100px;"></div>
+        <div class="blob" style="width:400px; height:400px; background:var(--amber); top:100px; right:100px;"></div>
+        <div class="blob" style="width:450px; height:450px; background:var(--red); bottom:50px; left:200px;"></div>
+      </div>
+      <div class="center-content">
+        <h1>"Predictive Risk Intelligence for Metabolic Screening in Diabetes"</h1>
+        <h2>"LMSIS — Latent Metabolic State Inference System"</h2>
+        <p>"[Presenter Name]"</p>
+        <p>"[Date]"</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: The Paradox -->
+    <div class="slide" id="slide-2">
+      <div class="center-content">
+        <h1>"Normal BMI. Normal cholesterol. No symptoms."</h1>
+        <h1 class="text-muted">"Their doctor sent them home."</h1>
+        <h1 class="text-red">"They had severe liver disease."</h1>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Why BMI Misses This -->
+    <div class="slide" id="slide-3">
+      <div class="center-content" style="justify-content: space-around;">
+        <div style="display: flex; gap: 150px; align-items: flex-end; margin-top: 40px;">
+          <!-- Silhouette 1 -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 140px; height: 320px; border: 3px solid var(--border); border-radius: 70px 70px 20px 20px; background: #0A101C; position: relative;">
+              <div style="width: 60px; height: 60px; border: 3px solid var(--border); border-radius: 50%; background: var(--bg); position: absolute; top: -70px; left: 37px;"></div>
+            </div>
+            <div class="num text-teal" style="font-size: 32px; margin-top: 20px;">"BMI 22"</div>
+          </div>
+          <!-- Silhouette 2 -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 140px; height: 320px; border: 3px solid var(--border); border-radius: 70px 70px 20px 20px; background: #0A101C; position: relative;">
+              <div style="width: 60px; height: 60px; border: 3px solid var(--border); border-radius: 50%; background: var(--bg); position: absolute; top: -70px; left: 37px;"></div>
+              <!-- Visceral fat indicator -->
+              <div style="width: 40px; height: 40px; background: var(--amber); border-radius: 50%; position: absolute; top: 120px; left: 47px; box-shadow: 0 0 20px var(--amber);"></div>
+              <div style="position: absolute; left: 110px; top: 128px; width: 60px; border-top: 1px dashed var(--amber);"></div>
+            </div>
+            <div class="num text-amber" style="font-size: 32px; margin-top: 20px;">"BMI 22"</div>
+          </div>
+        </div>
+        <p class="text-muted" style="font-size: 28px; font-style: italic; margin-top: 40px;">"BMI measures weight. It can't see where fat is hiding."</p>
+      </div>
+      <div class="icon-pin text-amber" style="position:absolute; bottom:60px; right:60px; width:24px; height:24px;"></div>
+    </div>
+
+    <!-- SLIDE 4: The Problem -->
+    <div class="slide" id="slide-4">
+      <div class="grid-2x2" style="align-content: center; padding: 40px 0;">
+        <div class="glass-card" style="border-color: var(--amber);">
+          <div class="icon-badge text-amber" style="margin-bottom: 20px;"><div class="icon icon-chart"><div></div><div></div><div></div></div></div>
+          <p style="font-size: 28px; margin: 0;">"Standard scores lose accuracy at normal weight"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--red);">
+          <div class="icon-badge text-red" style="margin-bottom: 20px;"><div class="icon icon-droplet"></div></div>
+          <p style="font-size: 28px; margin: 0;">"One major score gets it backwards entirely"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--blue);">
+          <div class="icon-badge text-blue" style="margin-bottom: 20px;"><div class="icon icon-shield"></div></div>
+          <p style="font-size: 28px; margin: 0;">"AI models that work, but explain nothing"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--red);">
+          <div class="icon-badge text-red" style="margin-bottom: 20px;"><div class="icon icon-clock"></div></div>
+          <p style="font-size: 28px; margin: 0;">"Confidence estimates that fail the riskiest patients"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: The Gap -->
+    <div class="slide" id="slide-5">
+      <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding-left: 100px;">
+        <div style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px;">
+          <div style="display: flex; align-items: center; gap: 30px;">
+            <div class="icon-badge text-teal"><div class="icon icon-check"></div></div>
+            <p style="font-size: 32px; margin: 0;">"Built specifically for normal-weight patients"</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 30px;">
+            <div class="icon-badge text-teal"><div class="icon icon-check"></div></div>
+            <p style="font-size: 32px; margin: 0;">"Risk scores tied to real medical tests"</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 30px;">
+            <div class="icon-badge text-teal"><div class="icon icon-check"></div></div>
+            <p style="font-size: 32px; margin: 0;">"Reliable confidence — even for the riskiest patients"</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 30px;">
+            <div class="icon-badge text-teal"><div class="icon icon-check"></div></div>
+            <p style="font-size: 32px; margin: 0;">"Plain explanations, not a black box"</p>
+          </div>
+        </div>
+        <p class="text-gold" style="font-size: 28px; font-weight: 500; margin-left: 78px;">"No existing system does all four. This one does."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: How It Works -->
+    <div class="slide" id="slide-6">
+      <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+        <div class="flow-container">
+          <div class="glass-card flow-box" style="border-color: var(--teal);">
+            <div class="icon-badge text-teal" style="margin-bottom: 15px;"><div class="icon icon-droplet"></div></div>
+            <p style="font-size: 20px; margin: 0;">"Blood test values"</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="glass-card flow-box" style="border-color: var(--blue);">
+            <div class="icon-badge text-blue" style="margin-bottom: 15px;"><div class="icon icon-chart"><div></div><div></div><div></div></div></div>
+            <p style="font-size: 20px; margin: 0;">"Pattern read as a whole"</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="glass-card flow-box" style="border-color: var(--amber);">
+            <div class="icon-badge text-amber" style="margin-bottom: 15px;"><div class="icon icon-chart"><div></div><div></div><div></div></div></div>
+            <p style="font-size: 20px; margin: 0;">"Two risk scores"</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="glass-card flow-box" style="border-color: var(--red);">
+            <div class="icon-badge text-red" style="margin-bottom: 15px;"><div class="icon icon-pin"></div></div>
+            <p style="font-size: 20px; margin: 0;">"Patient placed on a map"</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="glass-card flow-box" style="border-color: var(--teal);">
+            <div class="icon-badge text-teal" style="margin-bottom: 15px;"><div class="icon icon-shield"></div></div>
+            <p style="font-size: 20px; margin: 0;">"Confidence + route to safety"</p>
+          </div>
+        </div>
+        <p class="text-muted" style="font-size: 18px; text-align: center; margin-top: 80px;">"Implemented as an identifiable generative model, anchored to real clinical measurements — full detail in the written report."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Live Demonstration -->
+    <div class="slide" id="slide-7">
+      <div class="center-content">
+        <h1 style="font-size: 64px;">"Live demonstration"</h1>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Why Existing Tools Fail -->
+    <div class="slide" id="slide-8">
+      <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%; padding-bottom: 60px;">
+        <div style="display: flex; flex-direction: column; gap: 20px; width: 100%; position: relative; padding-left: 200px;">
+          <!-- Zero line -->
+          <div style="position: absolute; left: 350px; top: -20px; bottom: -20px; width: 2px; background: var(--border);"></div>
+          
+          <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+            <div style="width: 130px; text-align: right; margin-right: 20px; font-size: 22px;">LMSIS</div>
+            <div style="position: absolute; left: 150px; height: 40px; width: 600px; background: var(--teal);"></div>
+            <div class="num text-teal" style="font-size: 24px; position: absolute; left: 760px;">0.582</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+            <div style="width: 130px; text-align: right; margin-right: 20px; font-size: 22px;" class="text-muted">Model A</div>
+            <div style="position: absolute; left: 150px; height: 40px; width: 450px; background: var(--muted);"></div>
+            <div class="num text-muted" style="font-size: 24px; position: absolute; left: 610px;">0.430</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+            <div style="width: 130px; text-align: right; margin-right: 20px; font-size: 22px;" class="text-muted">Model B</div>
+            <div style="position: absolute; left: 150px; height: 40px; width: 380px; background: var(--muted);"></div>
+            <div class="num text-muted" style="font-size: 24px; position: absolute; left: 540px;">0.350</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+            <div style="width: 130px; text-align: right; margin-right: 20px; font-size: 22px;" class="text-muted">Model C</div>
+            <div style="position: absolute; left: 150px; height: 40px; width: 200px; background: var(--muted);"></div>
+            <div class="num text-muted" style="font-size: 24px; position: absolute; left: 360px;">0.150</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+            <div style="width: 130px; text-align: right; margin-right: 20px; font-size: 22px;" class="text-red">Score D</div>
+            <!-- inverted bar pointing left -->
+            <div style="position: absolute; right: 810px; height: 40px; width: 120px; background: var(--red);"></div>
+            <div class="num text-red" style="font-size: 24px; position: absolute; right: 940px;">-0.118</div>
+          </div>
+        </div>
+        <p style="font-size: 32px; text-align: center; margin-top: 80px;">"One widely used clinical score ranks sicker patients as healthier."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Trustworthy Confidence Ranges -->
+    <div class="slide" id="slide-9">
+      <div class="center-content">
+        <div style="display: flex; gap: 80px; align-items: flex-end; height: 350px; margin-bottom: 60px;">
+          <!-- Before Bar -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="num text-muted" style="font-size: 42px; margin-bottom: 10px;">"81.6%"</div>
+            <div style="width: 160px; height: 200px; background: var(--muted);"></div>
+            <div style="font-size: 28px; margin-top: 20px;" class="text-muted">"Before"</div>
+          </div>
+          <!-- After Bar -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="num text-teal" style="font-size: 42px; margin-bottom: 10px;">"90.4%"</div>
+            <div style="width: 160px; height: 260px; background: var(--teal);"></div>
+            <div style="font-size: 28px; margin-top: 20px;">"After"</div>
+          </div>
+        </div>
+        <p style="font-size: 32px;">"Standard methods miss the riskiest patients. This fixes that."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Tested Beyond the Training Data -->
+    <div class="slide" id="slide-10">
+      <div class="blobs">
+        <div class="blob" style="width:600px; height:600px; background:var(--teal); top:50px; right:300px;"></div>
+      </div>
+      <div class="center-content">
+        <div class="grid-2x2" style="height: auto; align-items: stretch;">
+          <div class="glass-card" style="border-color: var(--teal); display: flex; flex-direction: column; justify-content: space-between; padding: 40px;">
+            <div class="icon-badge text-teal" style="margin-bottom: 20px;"><div class="icon icon-clock"></div></div>
+            <p style="font-size: 24px; margin: 0 0 40px 0;">"Tested two years later, on patients never seen before"</p>
+            <div class="num text-teal" style="font-size: 42px;">"ρ = 0.583 ± 0.027"</div>
+          </div>
+          <div class="glass-card" style="border-color: var(--blue); display: flex; flex-direction: column; justify-content: space-between; padding: 40px;">
+            <div class="icon-badge text-blue" style="margin-bottom: 20px;"><div class="icon icon-shield"></div></div>
+            <p style="font-size: 24px; margin: 0 0 40px 0;">"Tested on a separate population group"</p>
+            <div class="num text-blue" style="font-size: 42px;">"ρ = 0.582 (N=355)"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: What We Built -->
+    <div class="slide" id="slide-11">
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 20px; height: 100%;">
+        <div class="glass-card" style="border-color: var(--teal); display: flex; align-items: center; gap: 30px; padding: 20px 30px;">
+          <div class="icon-badge text-teal"><div class="icon icon-pin"></div></div>
+          <p style="font-size: 24px; margin: 0;">"Risk scores mathematically anchored to real clinical measurements, not left as an unexplainable black box"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--blue); display: flex; align-items: center; gap: 30px; padding: 20px 30px;">
+          <div class="icon-badge text-blue"><div class="icon icon-shield"></div></div>
+          <p style="font-size: 24px; margin: 0;">"Reliable confidence ranges specifically for the highest-risk patients, where standard methods are shown to fail"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--amber); display: flex; align-items: center; gap: 30px; padding: 20px 30px;">
+          <div class="icon-badge text-amber"><div class="icon icon-chart"><div></div><div></div><div></div></div></div>
+          <p style="font-size: 24px; margin: 0;">"Plain mathematical formulas explaining how the model behaves"</p>
+        </div>
+        <div class="glass-card" style="border-color: var(--teal); display: flex; align-items: center; gap: 30px; padding: 20px 30px;">
+          <div class="icon-badge text-teal"><div class="icon icon-check"></div></div>
+          <p style="font-size: 24px; margin: 0;">"A complete, tested, working system — not just a research idea"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Questions You Might Be Asking -->
+    <div class="slide" id="slide-12">
+      <div class="grid-2x2" style="align-content: center; padding: 40px 0;">
+        <div class="glass-card">
+          <h3 style="font-size: 24px; margin-bottom: 15px;">"Is this ready for real patients?"</h3>
+          <p class="text-muted" style="font-size: 20px; margin: 0;">"No — a research prototype, not a diagnostic device."</p>
+        </div>
+        <div class="glass-card">
+          <h3 style="font-size: 24px; margin-bottom: 15px;">"Why not just use a simpler model?"</h3>
+          <p class="text-muted" style="font-size: 20px; margin: 0;">"Because it would give no explainable structure or per-group confidence."</p>
+        </div>
+        <div class="glass-card">
+          <h3 style="font-size: 24px; margin-bottom: 15px;">"Could this just be overfit to one dataset?"</h3>
+          <p class="text-muted" style="font-size: 20px; margin: 0;">"No — tested on data collected two years later that it never saw."</p>
+        </div>
+        <div class="glass-card">
+          <h3 style="font-size: 24px; margin-bottom: 15px;">"Why such a wide range on the national estimate?"</h3>
+          <p class="text-muted" style="font-size: 20px; margin: 0;">"It honestly reflects a small subgroup sample size, not a flawed model."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: Honest Limits and What's Next -->
+    <div class="slide" id="slide-13">
+      <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; position: relative;">
+        <!-- Glowing divider line -->
+        <div style="position: absolute; top: 50%; left: 60px; right: 60px; height: 2px; background: var(--border); box-shadow: 0 0 10px var(--border);"></div>
+        
+        <div style="flex: 1; padding-top: 40px;">
+          <p class="text-amber" style="font-size: 20px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">"What we don't yet know"</p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px;">
+            <li style="font-size: 28px;" class="text-muted">"Built from a single national data source"</li>
+            <li style="font-size: 28px;" class="text-muted">"A one-time snapshot, not tracked over time"</li>
+            <li style="font-size: 28px;" class="text-muted">"Not a diagnostic device"</li>
+          </ul>
+        </div>
+        <div style="flex: 1; padding-top: 60px;">
+          <p class="text-teal" style="font-size: 20px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">"What's next"</p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px;">
+            <li style="font-size: 28px;">"Test on completely independent data"</li>
+            <li style="font-size: 28px;">"Track real patients over time"</li>
+            <li style="font-size: 28px;">"Expand to more population groups"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: Closing -->
+    <div class="slide" id="slide-14">
+      <div class="center-content">
+        <h1 style="font-size: 48px; margin-bottom: 10px;">"Normal BMI is not metabolic health."</h1>
+        <h1 class="text-teal" style="font-size: 48px; margin-bottom: 60px;">"We can show you where the patient actually is — and the route back."</h1>
+        
+        <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 80px;">
+          <div class="glass-card" style="padding: 10px 20px; border-radius: 30px;"><span class="text-muted" style="font-size: 20px; font-weight: 500;">"Tested"</span></div>
+          <div class="glass-card" style="padding: 10px 20px; border-radius: 30px;"><span class="text-muted" style="font-size: 20px; font-weight: 500;">"Reproducible"</span></div>
+          <div class="glass-card" style="padding: 10px 20px; border-radius: 30px;"><span class="text-muted" style="font-size: 20px; font-weight: 500;">"Open Source"</span></div>
+        </div>
+        
+        <p class="text-muted" style="font-size: 28px;">"Thank you. Questions?"</p>
+      </div>
+      <div class="icon-pin text-teal" style="position:absolute; bottom:60px; right:60px; width:24px; height:24px;"></div>
+    </div>
+
+  </div>
+  
+  <div class="footer" id="footer-text">1 / 14</div>
+
+  <script>
+    // Slide Engine
+    const slides = document.querySelectorAll('.slide');
+    const footer = document.getElementById('footer-text');
+    let currentSlide = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      footer.innerText = `${currentSlide + 1} / ${slides.length}`;
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      }
+    });
+
+    // Handle Scaling to maintain 16:9 aspect ratio exactly
+    function resize() {
+      const container = document.getElementById('deck-container');
+      const scaleX = window.innerWidth / 1280;
+      const scaleY = window.innerHeight / 720;
+      const scale = Math.min(scaleX, scaleY);
+      container.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    updateSlide();
+  </script>
+</body>
+</html>
