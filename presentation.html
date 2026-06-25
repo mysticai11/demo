@@ -103,7 +103,6 @@
       transform: translateY(-8px);
       box-shadow: 0 24px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15);
     }
-    /* Subtle inner glow for bento */
     .bento::before {
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%);
@@ -123,12 +122,12 @@
     .icon-amber { color: var(--amber); background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.2); box-shadow: 0 0 20px rgba(245,166,35,0.1); }
     .icon-red { color: var(--red); background: rgba(255,74,95,0.1); border-color: rgba(255,74,95,0.2); box-shadow: 0 0 20px rgba(255,74,95,0.1); }
 
-    /* SVG Icons directly embedded for perfection */
     .svg-icon { width: 32px; height: 32px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
     /* Layout Helpers */
     .center-abs { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; width: 100%; }
     
     /* Neon Bar Charts */
     .neon-track {
@@ -179,121 +178,116 @@
       </div>
     </div>
 
-    <!-- SLIDE 3: Why BMI Misses This -->
+    <!-- SLIDE 3: The Gap - Normal-BMI Phenotypes (NEW) -->
     <div class="slide" id="slide-3">
-      <div class="center-abs">
-        <div class="stagger-1" style="display: flex; gap: 200px; align-items: flex-end; margin-top: 40px;">
-          <!-- Silhouette 1 -->
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 180px; height: 400px; border: 4px solid rgba(255,255,255,0.1); border-radius: 90px 90px 30px 30px; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); position: relative; box-shadow: inset 0 0 20px rgba(255,255,255,0.02);">
-              <div style="width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; background: var(--bg); position: absolute; top: -90px; left: 46px;"></div>
-            </div>
-            <div class="num" style="font-size: 40px; margin-top: 30px; color: var(--text);">BMI 22</div>
-          </div>
-          <!-- Silhouette 2 -->
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 180px; height: 400px; border: 4px solid rgba(255,255,255,0.1); border-radius: 90px 90px 30px 30px; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); position: relative; box-shadow: inset 0 0 20px rgba(255,255,255,0.02);">
-              <div style="width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; background: var(--bg); position: absolute; top: -90px; left: 46px;"></div>
-              <!-- Visceral fat indicator -->
-              <div style="width: 60px; height: 60px; background: var(--amber); border-radius: 50%; position: absolute; top: 150px; left: 56px; box-shadow: 0 0 40px var(--amber); opacity: 0.8; animation: pulse 2s infinite;"></div>
-              <div style="position: absolute; left: 140px; top: 178px; width: 100px; border-top: 2px dashed var(--amber);"></div>
-              <div style="position: absolute; left: 250px; top: 160px; color: var(--amber); font-weight: 700; font-size: 24px; text-shadow: 0 0 10px var(--amber);">Visceral Fat</div>
-            </div>
-            <div class="num text-amber" style="font-size: 40px; margin-top: 30px; text-shadow: 0 0 20px rgba(245,166,35,0.5);">BMI 22</div>
-          </div>
+      <h2 class="stagger-1" style="margin-bottom: 50px; text-align: center;">The Blindspot: Silent Ectopic Fat</h2>
+      <p class="stagger-2" style="text-align: center; margin-bottom: 50px; font-size: 26px;">Standard BMI (18.5 - 24.9 kg/m²) measures mass, but is entirely blind to fat distribution. Beneath a "healthy" exterior, patients fall into 4 distinct phenotypes:</p>
+      <div class="grid-2">
+        <div class="bento stagger-3" style="padding: 30px;">
+          <h3 class="text-gradient-teal" style="font-size: 28px; margin-bottom: 15px;">1. Metabolically Healthy (MHNW)</h3>
+          <p style="font-size: 20px;">The baseline cohort. Low risk of cardiovascular progression or diabetes.</p>
         </div>
-        <p class="stagger-2" style="font-size: 36px; margin-top: 80px; max-width: 1000px;">BMI measures weight. <br><span class="text-gradient-red" style="font-weight: 600;">It can't see where fat is hiding.</span></p>
+        <div class="bento stagger-3" style="padding: 30px;">
+          <h3 class="text-gradient-blue" style="font-size: 28px; margin-bottom: 15px;">2. IR-Dominant (Z₁ Elevated)</h3>
+          <p style="font-size: 20px;">Isolated tissue insulin resistance. These patients respond to sensitizers like Metformin.</p>
+        </div>
+        <div class="bento stagger-4" style="padding: 30px;">
+          <h3 class="text-gradient-amber" style="font-size: 28px; margin-bottom: 15px;">3. Steatosis-Dominant (Z₂ Elevated)</h3>
+          <p style="font-size: 20px;">Isolated hepatic lipid accumulation. This group requires Statins or Fibrates.</p>
+        </div>
+        <div class="bento stagger-4" style="padding: 30px; border-color: var(--red); box-shadow: 0 0 30px rgba(255,74,95,0.2);">
+          <h3 class="text-gradient-red" style="font-size: 28px; margin-bottom: 15px;">4. Dual-Burden (High Risk)</h3>
+          <p style="font-size: 20px;">Both axes elevated. The highest-risk subpopulation carrying a severe, silent dual burden.</p>
+        </div>
       </div>
     </div>
-    <style>@keyframes pulse { 0% {transform: scale(1); opacity:0.6;} 50% {transform: scale(1.1); opacity:1;} 100% {transform: scale(1); opacity:0.6;} }</style>
 
-    <!-- SLIDE 4: The Problem -->
+    <!-- SLIDE 4: The Dataset and Ground Truth (NEW) -->
     <div class="slide" id="slide-4">
-      <h2 class="stagger-1 text-gradient-red" style="margin-bottom: 60px; text-align: center;">The Hidden Blindspots</h2>
-      <div class="grid-2" style="flex: 1;">
+      <h2 class="stagger-1 text-center" style="margin-bottom: 60px; text-align: center;">The Dataset & Ground Truth Validation</h2>
+      <div class="grid-2" style="height: 500px;">
         <div class="bento stagger-2" style="display: flex; flex-direction: column; justify-content: center;">
-          <div class="icon-box icon-amber" style="margin-bottom: 30px;"><svg class="svg-icon"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
-          <h3 style="font-size: 36px; color: var(--text);">Standard scores lose accuracy at normal weight</h3>
+          <div class="icon-box icon-teal" style="margin-bottom: 25px;"><svg class="svg-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3 style="font-size: 32px; color: var(--text); margin-bottom: 20px;">14 Routine Blood Biomarkers</h3>
+          <p style="font-size: 22px;">Using standard, accessible lab panels to detect hidden dysfunction without invasive imaging.</p>
         </div>
         <div class="bento stagger-3" style="display: flex; flex-direction: column; justify-content: center;">
-          <div class="icon-box icon-red" style="margin-bottom: 30px;"><svg class="svg-icon"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg></div>
-          <h3 style="font-size: 36px; color: var(--text);">One major score gets it backwards entirely</h3>
-        </div>
-        <div class="bento stagger-4" style="display: flex; flex-direction: column; justify-content: center;">
-          <div class="icon-box icon-blue" style="margin-bottom: 30px;"><svg class="svg-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3 style="font-size: 36px; color: var(--text);">AI models that work, but explain nothing</h3>
-        </div>
-        <div class="bento stagger-5" style="display: flex; flex-direction: column; justify-content: center;">
-          <div class="icon-box icon-red" style="margin-bottom: 30px;"><svg class="svg-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3 style="font-size: 36px; color: var(--text);">Confidence estimates that fail the riskiest patients</h3>
+          <div class="icon-box icon-amber" style="margin-bottom: 25px;"><svg class="svg-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3 style="font-size: 32px; color: var(--text); margin-bottom: 20px;">FibroScan® Ultrasound Ground Truth</h3>
+          <p style="font-size: 22px;">The gold-standard for hepatic steatosis and fibrosis, providing the rigorous labels to validate our computational inferences.</p>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 5: The Gap -->
+    <!-- SLIDE 5: The System Architecture (NEW) -->
     <div class="slide" id="slide-5">
-      <div style="display: flex; flex-direction: column; height: 100%; justify-content: center;">
-        <h2 class="stagger-1" style="margin-bottom: 80px; padding-left: 40px;">The Four Pillars of Clinical Utility</h2>
-        <div style="display: flex; flex-direction: column; gap: 40px; padding-left: 40px;">
-          <div class="stagger-2" style="display: flex; align-items: center; gap: 40px;">
-            <div class="icon-box icon-teal"><svg class="svg-icon"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 style="font-weight: 500;">Built specifically for normal-weight patients</h3>
-          </div>
-          <div class="stagger-3" style="display: flex; align-items: center; gap: 40px;">
-            <div class="icon-box icon-teal"><svg class="svg-icon"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 style="font-weight: 500;">Risk scores tied to real medical tests</h3>
-          </div>
-          <div class="stagger-4" style="display: flex; align-items: center; gap: 40px;">
-            <div class="icon-box icon-teal"><svg class="svg-icon"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 style="font-weight: 500;">Reliable confidence — even for the riskiest patients</h3>
-          </div>
-          <div class="stagger-5" style="display: flex; align-items: center; gap: 40px;">
-            <div class="icon-box icon-teal"><svg class="svg-icon"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 style="font-weight: 500;">Plain explanations, not a black box</h3>
-          </div>
+      <h2 class="stagger-1" style="margin-bottom: 50px; text-align: center;">Core Architecture: DA-SS-iVAE</h2>
+      <p class="stagger-2" style="text-align: center; margin-bottom: 60px; font-size: 26px;">The Dual-Anchored Semi-Supervised Identifiable Variational Autoencoder</p>
+      
+      <div class="bento stagger-3" style="padding: 50px; display: flex; align-items: center; justify-content: space-between;">
+        
+        <!-- Input -->
+        <div style="text-align: center; width: 250px;">
+          <h4 style="font-size: 24px; color: var(--text); margin-bottom: 10px;">14 Biomarkers</h4>
+          <p style="font-size: 18px;" class="num">x ∈ ℝ¹⁴</p>
+          <div style="margin-top:20px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">High-dimensional raw clinical data</div>
         </div>
-        <div class="stagger-5 bento" style="margin-top: 80px; align-self: flex-start; padding: 30px 50px;">
-          <h3 class="text-gradient-gold" style="font-size: 32px; margin: 0;">No existing system does all four. This one does.</h3>
+        
+        <!-- Arrow -->
+        <div class="text-gradient-teal" style="font-size: 40px;">→</div>
+        
+        <!-- Encoder Engine -->
+        <div style="text-align: center; width: 350px; padding: 30px; border: 2px solid var(--teal-dim); border-radius: 20px; background: rgba(0,196,125,0.05); box-shadow: inset 0 0 20px rgba(0,196,125,0.1);">
+          <h4 style="font-size: 28px; color: var(--teal); margin-bottom: 10px;">DA-SS-iVAE</h4>
+          <p style="font-size: 18px; margin-bottom: 15px;">q_φ(z | x, u)</p>
+          <p style="font-size: 16px; line-height: 1.4;">Learns identifiable embeddings by merging massive unlabeled labs with sparse FibroScan labels.</p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="text-gradient-teal" style="font-size: 40px;">→</div>
+
+        <!-- Output Latent -->
+        <div style="text-align: center; width: 250px;">
+          <h4 style="font-size: 24px; color: var(--text); margin-bottom: 10px;">2D Latent Space</h4>
+          <p style="font-size: 18px;" class="num">z ∈ ℝ²</p>
+          <div style="margin-top:20px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">Z₁: Insulin Resistance<br>Z₂: Steatosis</div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 6: How It Works -->
+    <!-- SLIDE 6: The Pipeline (Replaces Old Slide 6) -->
     <div class="slide" id="slide-6">
-      <h2 class="stagger-1 text-center" style="margin-bottom: 80px; text-align: center;">How It Works</h2>
+      <h2 class="stagger-1 text-center" style="margin-bottom: 80px; text-align: center;">End-to-End Pipeline</h2>
       <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 250px;">
         <div class="bento stagger-2" style="width: 220px; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
           <div class="icon-box icon-teal" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg></div>
-          <p style="font-size: 22px; color: var(--text); font-weight: 600;">Blood test values</p>
+          <p style="font-size: 20px; color: var(--text); font-weight: 600;">Routine Labs</p>
+          <p style="font-size: 14px; margin-top: 5px;">(FPG, AST, ALT, etc.)</p>
         </div>
         <div class="stagger-2" style="font-size: 40px; color: var(--border);">→</div>
         <div class="bento stagger-3" style="width: 220px; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
           <div class="icon-box icon-blue" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M2 12h4l2-9 5 18 2-9h7"/></svg></div>
-          <p style="font-size: 22px; color: var(--text); font-weight: 600;">Pattern read as a whole</p>
+          <p style="font-size: 20px; color: var(--text); font-weight: 600;">DA-SS-iVAE Projection</p>
         </div>
         <div class="stagger-3" style="font-size: 40px; color: var(--border);">→</div>
         <div class="bento stagger-4" style="width: 220px; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
           <div class="icon-box icon-amber" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
-          <p style="font-size: 22px; color: var(--text); font-weight: 600;">Two risk scores</p>
+          <p style="font-size: 20px; color: var(--text); font-weight: 600;">2D Risk Coordinates</p>
         </div>
         <div class="stagger-4" style="font-size: 40px; color: var(--border);">→</div>
         <div class="bento stagger-5" style="width: 220px; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-          <div class="icon-box icon-red" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <p style="font-size: 22px; color: var(--text); font-weight: 600;">Patient placed on a map</p>
-        </div>
-        <div class="stagger-5" style="font-size: 40px; color: var(--border);">→</div>
-        <div class="bento stagger-5" style="width: 220px; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-          <div class="icon-box icon-teal" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <p style="font-size: 22px; color: var(--text); font-weight: 600;">Confidence + route to safety</p>
+          <div class="icon-box icon-red" style="margin-bottom: 20px;"><svg class="svg-icon"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <p style="font-size: 20px; color: var(--text); font-weight: 600;">Conformal Prediction</p>
+          <p style="font-size: 14px; margin-top: 5px;">Calibrated Uncertainty</p>
         </div>
       </div>
-      <p class="stagger-5" style="text-align: center; margin-top: 100px; font-size: 22px;">Implemented as an identifiable generative model, anchored to real clinical measurements — full detail in the written report.</p>
     </div>
 
     <!-- SLIDE 7: Live Demonstration -->
     <div class="slide" id="slide-7">
       <div class="center-abs">
-        <h1 class="stagger-1 text-gradient-teal" style="font-size: 96px; text-shadow: 0 0 60px rgba(0, 230, 150, 0.3);">Live demonstration</h1>
+        <h1 class="stagger-1 text-gradient-teal" style="font-size: 96px; text-shadow: 0 0 60px rgba(0, 230, 150, 0.3);">Live Demonstration</h1>
+        <p class="stagger-2" style="font-size: 32px; margin-top: 20px;">Switching to the LMSIS Dashboard Web Application.</p>
       </div>
     </div>
 
@@ -326,17 +320,9 @@
               </div>
               <div class="num text-muted" style="margin-left: 20px; font-size: 28px;">0.350</div>
             </div>
-            <div class="stagger-3" style="display: flex; align-items: center; position: relative;">
-              <div style="width: 100px; text-align: right; margin-right: 30px; font-size: 24px; color: var(--muted);">Model C</div>
-              <div class="neon-track" style="width: 800px;">
-                <div class="neon-bar" style="width: 18%; background: var(--muted); color: var(--muted);"></div>
-              </div>
-              <div class="num text-muted" style="margin-left: 20px; font-size: 28px;">0.150</div>
-            </div>
             <div class="stagger-4" style="display: flex; align-items: center; position: relative;">
               <div style="width: 100px; text-align: right; margin-right: 30px; font-size: 24px; color: var(--red);">Score D</div>
               <div class="neon-track" style="width: 800px; overflow: visible;">
-                <!-- Negative bar goes left from zero line -->
                 <div class="neon-bar" style="width: 14%; right: 100%; left: auto; background: var(--red); color: var(--red);"></div>
               </div>
               <div class="num text-red" style="position: absolute; left: 140px; font-size: 28px;">-0.118</div>
@@ -350,14 +336,15 @@
     <!-- SLIDE 9: Trustworthy Confidence Ranges -->
     <div class="slide" id="slide-9">
       <div class="center-abs">
-        <div class="bento stagger-1" style="display: flex; gap: 120px; align-items: flex-end; padding: 60px 100px; margin-bottom: 80px;">
+        <h2 class="stagger-1 text-center" style="margin-bottom: 60px;">Conformal Confidence Calibration</h2>
+        <div class="bento stagger-2" style="display: flex; gap: 120px; align-items: flex-end; padding: 60px 100px; margin-bottom: 80px;">
           <!-- Before Bar -->
           <div style="display: flex; flex-direction: column; align-items: center;">
             <div class="num text-muted" style="font-size: 56px; margin-bottom: 20px;">81.6%</div>
             <div class="neon-track" style="width: 180px; height: 250px; border-radius: 20px;">
               <div class="neon-bar" style="width: 100%; height: 100%; bottom: 0; background: var(--muted); color: var(--muted);"></div>
             </div>
-            <div style="font-size: 32px; margin-top: 30px; font-weight: 600;" class="text-muted">Before</div>
+            <div style="font-size: 32px; margin-top: 30px; font-weight: 600;" class="text-muted">Standard BNN</div>
           </div>
           <!-- After Bar -->
           <div style="display: flex; flex-direction: column; align-items: center;">
@@ -365,122 +352,98 @@
             <div class="neon-track" style="width: 180px; height: 350px; border-radius: 20px;">
               <div class="neon-bar" style="width: 100%; height: 100%; bottom: 0; background: var(--teal); color: var(--teal);"></div>
             </div>
-            <div style="font-size: 32px; margin-top: 30px; font-weight: 600; color: var(--text);">After</div>
+            <div style="font-size: 32px; margin-top: 30px; font-weight: 600; color: var(--text);">Conformal iVAE</div>
           </div>
         </div>
-        <p class="stagger-2" style="font-size: 40px; font-weight: 500;">Standard methods miss the riskiest patients. This fixes that.</p>
+        <p class="stagger-3" style="font-size: 32px; font-weight: 500;">Our conformal implementation guarantees robust uncertainty estimates even in out-of-distribution high-risk regions.</p>
       </div>
     </div>
 
     <!-- SLIDE 10: Tested Beyond the Training Data -->
     <div class="slide" id="slide-10">
       <div class="center-abs">
-        <h2 class="stagger-1" style="margin-bottom: 80px;">Tested Beyond the Training Data</h2>
+        <h2 class="stagger-1" style="margin-bottom: 80px;">Generalization & Validation</h2>
         <div class="grid-2">
           <div class="bento stagger-2" style="padding: 60px; display: flex; flex-direction: column; justify-content: space-between; height: 350px; box-sizing: border-box;">
             <div class="icon-box icon-teal" style="margin-bottom: 20px;"><svg class="svg-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <h3 style="font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--text);">Tested two years later, on patients never seen before</h3>
+            <h3 style="font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--text);">Temporal Out-of-Distribution Shift (Two Years Later)</h3>
             <div class="num text-gradient-teal" style="font-size: 56px; margin-top: 20px;">ρ = 0.583 ± 0.027</div>
           </div>
           <div class="bento stagger-3" style="padding: 60px; display: flex; flex-direction: column; justify-content: space-between; height: 350px; box-sizing: border-box;">
             <div class="icon-box icon-blue" style="margin-bottom: 20px;"><svg class="svg-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-            <h3 style="font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--text);">Tested on a separate population group</h3>
+            <h3 style="font-size: 32px; font-weight: 500; line-height: 1.4; color: var(--text);">Subpopulation Shift Validation (Asian Cohort)</h3>
             <div class="num text-gradient-teal" style="font-size: 56px; margin-top: 20px;">ρ = 0.582 (N=355)</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 11: What We Built -->
+    <!-- SLIDE 11: Questions You Might Be Asking -->
     <div class="slide" id="slide-11">
-      <h2 class="stagger-1 text-center" style="margin-bottom: 60px; text-align: center;">What We Built</h2>
-      <div style="display: flex; flex-direction: column; gap: 30px; height: 100%; justify-content: center;">
-        <div class="bento stagger-2" style="padding: 30px 50px; display: flex; align-items: center; gap: 40px;">
-          <div class="icon-box icon-teal"><svg class="svg-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <h3 style="font-size: 30px; font-weight: 500;">Risk scores mathematically anchored to real clinical measurements, not left as an unexplainable black box</h3>
-        </div>
-        <div class="bento stagger-3" style="padding: 30px 50px; display: flex; align-items: center; gap: 40px;">
-          <div class="icon-box icon-blue"><svg class="svg-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3 style="font-size: 30px; font-weight: 500;">Reliable confidence ranges specifically for the highest-risk patients, where standard methods are shown to fail</h3>
-        </div>
-        <div class="bento stagger-4" style="padding: 30px 50px; display: flex; align-items: center; gap: 40px;">
-          <div class="icon-box icon-amber"><svg class="svg-icon"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
-          <h3 style="font-size: 30px; font-weight: 500;">Plain mathematical formulas explaining how the model behaves</h3>
-        </div>
-        <div class="bento stagger-5" style="padding: 30px 50px; display: flex; align-items: center; gap: 40px;">
-          <div class="icon-box icon-teal"><svg class="svg-icon"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h3 style="font-size: 30px; font-weight: 500;">A complete, tested, working system — not just a research idea</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 12: Questions You Might Be Asking -->
-    <div class="slide" id="slide-12">
-      <h2 class="stagger-1" style="margin-bottom: 60px; text-align: center;">Questions You Might Be Asking</h2>
+      <h2 class="stagger-1" style="margin-bottom: 60px; text-align: center;">Anticipated Questions</h2>
       <div class="grid-2">
         <div class="bento stagger-2">
-          <h3 style="font-size: 28px; margin-bottom: 20px;">Is this ready for real patients?</h3>
-          <p>No — a research prototype, not a diagnostic device.</p>
+          <h3 style="font-size: 28px; margin-bottom: 20px;">Is this ready for clinical deployment?</h3>
+          <p>No — it is a validated computational framework. Prospective clinical trials are required before diagnostic use.</p>
         </div>
         <div class="bento stagger-3">
-          <h3 style="font-size: 28px; margin-bottom: 20px;">Why not just use a simpler model?</h3>
-          <p>Because it would give no explainable structure or per-group confidence.</p>
+          <h3 style="font-size: 28px; margin-bottom: 20px;">Why an iVAE over a standard ResNet?</h3>
+          <p>Because standard VAEs suffer from unidentifiability. Our dual-anchored formulation guarantees biologically interpretable latent dimensions.</p>
         </div>
         <div class="bento stagger-4">
-          <h3 style="font-size: 28px; margin-bottom: 20px;">Could this just be overfit to one dataset?</h3>
-          <p>No — tested on data collected two years later that it never saw.</p>
+          <h3 style="font-size: 28px; margin-bottom: 20px;">Does the model overfit the NHANES dataset?</h3>
+          <p>No — rigorous temporal OOD testing confirmed robust generalizability two years out.</p>
         </div>
         <div class="bento stagger-5">
-          <h3 style="font-size: 28px; margin-bottom: 20px;">Why such a wide range on the national estimate?</h3>
-          <p>It honestly reflects a small subgroup sample size, not a flawed model.</p>
+          <h3 style="font-size: 28px; margin-bottom: 20px;">What about the unlabelled data?</h3>
+          <p>The semi-supervised architecture uses massive unlabeled lab sets to refine the manifold, vastly outperforming purely supervised baseline models.</p>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 13: Honest Limits and What's Next -->
-    <div class="slide" id="slide-13">
+    <!-- SLIDE 12: Future Work -->
+    <div class="slide" id="slide-12">
       <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; position: relative;">
         <!-- Glowing divider line -->
         <div class="stagger-3" style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--border), transparent); box-shadow: 0 0 15px rgba(255,255,255,0.1);"></div>
         
         <div class="stagger-1" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 60px;">
-          <h3 class="text-gradient-gold" style="font-size: 24px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">What we don't yet know</h3>
+          <h3 class="text-gradient-gold" style="font-size: 24px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Current Limitations</h3>
           <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px;">
-            <li style="font-size: 32px; display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--muted); border-radius:50%;"></div>Built from a single national data source</li>
-            <li style="font-size: 32px; display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--muted); border-radius:50%;"></div>A one-time snapshot, not tracked over time</li>
-            <li style="font-size: 32px; display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--muted); border-radius:50%;"></div>Not a diagnostic device</li>
+            <li style="font-size: 30px; display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--muted); border-radius:50%;"></div>Reliance on a single national cross-sectional data source.</li>
+            <li style="font-size: 30px; display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--muted); border-radius:50%;"></div>Lacks longitudinal tracking for individual disease progression.</li>
           </ul>
         </div>
         <div class="stagger-4" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 60px;">
-          <h3 class="text-gradient-teal" style="font-size: 24px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">What's next</h3>
+          <h3 class="text-gradient-teal" style="font-size: 24px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Future Research Directions</h3>
           <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px;">
-            <li style="font-size: 32px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Test on completely independent data</li>
-            <li style="font-size: 32px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Track real patients over time</li>
-            <li style="font-size: 32px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Expand to more population groups</li>
+            <li style="font-size: 30px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Prospective clinical trials to measure real-world diagnostic impact.</li>
+            <li style="font-size: 30px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Integration of time-series modeling for temporal risk trajectories.</li>
+            <li style="font-size: 30px; color: var(--text); display: flex; align-items: center; gap: 20px;"><div style="width:8px; height:8px; background:var(--teal); border-radius:50%; box-shadow: 0 0 10px var(--teal);"></div>Expansion of the validation cohort to highly heterogeneous populations.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 14: Closing -->
-    <div class="slide" id="slide-14">
+    <!-- SLIDE 13: Closing -->
+    <div class="slide" id="slide-13">
       <div class="center-abs">
         <h1 class="stagger-1" style="font-size: 64px; margin-bottom: 20px;">Normal BMI is not metabolic health.</h1>
-        <h1 class="stagger-2 text-gradient-teal" style="font-size: 64px; margin-bottom: 80px;">We can show you where the patient actually is — and the route back.</h1>
+        <h1 class="stagger-2 text-gradient-teal" style="font-size: 64px; margin-bottom: 80px;">LMSIS makes the invisible, mathematically identifiable.</h1>
         
         <div class="stagger-3" style="display: flex; gap: 30px; justify-content: center; margin-bottom: 100px;">
-          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Tested</span></div>
-          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Reproducible</span></div>
-          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Open Source</span></div>
+          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Validated DA-SS-iVAE</span></div>
+          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Conformal Calibration</span></div>
+          <div class="bento" style="padding: 15px 30px; border-radius: 40px;"><span style="font-size: 24px; font-weight: 600; color: var(--text);">Fully Open Source</span></div>
         </div>
         
-        <p class="stagger-4" style="font-size: 36px; color: var(--muted);">Thank you. Questions?</p>
+        <p class="stagger-4" style="font-size: 36px; color: var(--muted);">Thank you. We welcome your questions.</p>
       </div>
     </div>
 
   </div>
   
-  <div class="footer" id="footer-text">01 / 14</div>
+  <div class="footer" id="footer-text">01 / 13</div>
 
   <script>
     const slides = document.querySelectorAll('.slide');
