@@ -160,8 +160,10 @@ def build_presentation():
     add_blob(s, 3, 5, 2.5, RED, 10)
     add_textbox(s, "Predictive Risk Intelligence for Metabolic Screening in Diabetes", MARGIN, Inches(2), W - 2*MARGIN, Inches(1.5), font_name="Poppins", font_size=44, bold=True, align=PP_ALIGN.CENTER)
     add_textbox(s, "LMSIS — Latent Metabolic State Inference System", MARGIN, Inches(3.5), W - 2*MARGIN, Inches(1), font_size=24, color=TEAL, align=PP_ALIGN.CENTER)
-    add_textbox(s, "[Presenter Name]", MARGIN, Inches(5), W - 2*MARGIN, Inches(0.5), font_size=20, color=MUTED, align=PP_ALIGN.CENTER)
-    add_textbox(s, "[Date]", MARGIN, Inches(5.5), W - 2*MARGIN, Inches(0.5), font_size=20, color=MUTED, align=PP_ALIGN.CENTER)
+    presenters = "Karamjeet Singh (5244) • Sarandeep Singh (5244) • Ubaid Ahmad (5255) • Aiman Younus Dar (222176)"
+    add_textbox(s, presenters, MARGIN, Inches(5), W - 2*MARGIN, Inches(0.5), font_size=16, color=MUTED, align=PP_ALIGN.CENTER)
+    add_textbox(s, "SHMM Government Degree College Anantnag", MARGIN, Inches(5.4), W - 2*MARGIN, Inches(0.5), font_size=18, color=TEAL, align=PP_ALIGN.CENTER)
+    add_textbox(s, "June 2026", MARGIN, Inches(5.8), W - 2*MARGIN, Inches(0.5), font_size=16, color=MUTED, align=PP_ALIGN.CENTER)
 
     # 2. The Paradox
     s = prs.slides.add_slide(layout); set_bg(s, BG)
