@@ -3,802 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Predictive Risk Intelligence for Metabolic Screening in Diabetes</title>
+  <title>LMSIS - Predictive Risk Intelligence</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sticky Navigation Header -->
-  <header class="sticky-nav">
-    <div class="nav-logo">LMSIS</div>
-    <ul class="nav-links">
-      <li><a href="#abstract">Abstract</a></li>
-      <li><a href="#problem">Problem</a></li>
-      <li><a href="#method">Method</a></li>
-      <li><a href="#demo">Demo</a></li>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#questions">Questions</a></li>
-      <li><a href="#team">Team</a></li>
-    </ul>
-  </header>
+  <!-- Cinematic Background -->
+  <div class="aurora-bg"></div>
+  <div class="noise-overlay"></div>
 
-  <!-- SECTION 1 — Hero -->
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">LMSIS</a>
+    <div class="links">
+      <a href="#engine">Architecture</a>
+      <a href="#atlas">Latent Atlas</a>
+      <a href="#proof">Validation</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
   <section id="hero">
-    <div class="blob-container">
-      <div class="blob blob-healthy" style="top: 15%; left: 10%;"></div>
-      <div class="blob blob-ir" style="top: 20%; right: 15%;"></div>
-      <div class="blob blob-liver" style="bottom: 15%; left: 20%;"></div>
-      <div class="blob blob-dual" style="bottom: 10%; right: 10%;"></div>
+    <div class="container">
+      <h1 class="hidden" style="transition-delay: 0.1s;">Normal BMI. <br/>Normal cholesterol.</h1>
+      <h2 class="hidden text-gradient-teal" style="transition-delay: 0.3s; margin-top: 20px; font-size: 48px;">Their doctor sent them home.</h2>
+      <h1 class="hidden text-gradient-red" style="transition-delay: 0.5s; margin-top: 40px;">They had severe liver disease.</h1>
     </div>
-    <div class="reveal">
-      <h1>Predictive Risk Intelligence for Metabolic Screening in Diabetes</h1>
-      <h2>LMSIS — Latent Metabolic State Inference System</h2>
-      <p>A deep generative model that recovers hidden metabolic risk from routine blood biomarkers in adults with a normal body weight.</p>
-      <div class="hero-buttons">
-        <a href="https://github.com/mysticai11/TYPE2-PHENOTYPE" class="btn btn-glass" target="_blank">View on GitHub</a>
-        <a href="dissertation.pdf" class="btn btn-glass" target="_blank">Read the Full Report</a>
-        <a href="#demo" class="btn btn-primary">Try the Live Demo</a>
-      </div>
-      <div class="hero-scroll" onclick="document.getElementById('abstract').scrollIntoView({behavior: 'smooth'})">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </div>
+    <div class="scroll-indicator hidden" style="transition-delay: 1.2s;" onclick="scrollToSection('blindspot')">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
     </div>
   </section>
 
-  <!-- SECTION 2 — Abstract -->
-  <section id="abstract">
-    <div class="reveal" style="max-width: 700px; width: 100%;">
-      <p>Millions of adults with a clinically normal body weight may carry hidden, concurrent insulin resistance and hepatic steatosis — a combination of metabolic dysfunction that routine screening, built around Body Mass Index, is structurally unable to detect. LMSIS is a semi-supervised deep generative model that learns a two-dimensional metabolic coordinate space directly from fourteen routine blood biomarkers, with each axis mathematically anchored to a real clinical reference measurement: insulin resistance and liver fat content. The system places every patient on this map, provides a calibrated confidence range specific to their risk group, and computes a route back toward a metabolically healthy position — translated into the exact biomarker changes that would move them there.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 3 — The Problem -->
-  <section id="problem">
-    <div class="reveal" style="width: 100%; max-width: 1100px;">
-      <div class="two-col-layout">
-        <div class="col-left">
-          <h3>Normal BMI. Normal cholesterol. No symptoms. Their doctor sent them home — but they had severe liver disease.</h3>
-          <p>BMI measures total body weight. It cannot see where fat is stored, and storage location is what actually drives metabolic disease risk.</p>
-        </div>
-        <div class="col-right">
-          <div class="problem-silhouettes">
-            <!-- Left Silhouette (Healthy) -->
-            <div class="silhouette-wrap">
-              <svg viewBox="0 0 100 200" class="silhouette-svg">
-                <circle cx="50" cy="22" r="11" />
-                <rect x="47" y="33" width="6" height="5" />
-                <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
-                <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
-                <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
-                <rect x="42" y="110" width="7" height="75" rx="3" />
-                <rect x="51" y="110" width="7" height="75" rx="3" />
-              </svg>
-              <span class="mono-num">BMI 22</span>
-            </div>
-            <!-- Right Silhouette (With Hidden Visceral Fat) -->
-            <div class="silhouette-wrap">
-              <svg viewBox="0 0 100 200" class="silhouette-svg fat-variant">
-                <circle cx="50" cy="22" r="11" />
-                <rect x="47" y="33" width="6" height="5" />
-                <path d="M 36 38 L 64 38 L 59 110 L 41 110 Z" />
-                <path d="M 33 38 C 29 48 29 78 33 88 C 34 91 38 91 38 88 C 36 78 36 48 39 40 Z" />
-                <path d="M 67 38 C 71 48 71 78 67 88 C 66 91 62 91 62 88 C 64 78 64 48 61 40 Z" />
-                <rect x="42" y="110" width="7" height="75" rx="3" />
-                <rect x="51" y="110" width="7" height="75" rx="3" />
-                <!-- Visceral fat indicator -->
-                <ellipse cx="50" cy="72" rx="13" ry="9" class="visceral-glow" />
-              </svg>
-              <div class="tag-pointer"></div>
-              <div class="tag-label">hidden visceral fat</div>
-              <span class="mono-num">BMI 22</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="problem-cards-row">
-        <div class="glass-card problem-mini-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-            <line x1="12" y1="9" x2="12" y2="13"></line>
-            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-          </svg>
-          <p>Clinical risk scores lose accuracy once body weight is restricted to the normal range</p>
-        </div>
-        <div class="glass-card problem-mini-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 12.45 14.55 7.55 9.65 1 16.2"></polyline>
-            <polyline points="17 4 23 4 23 10"></polyline>
-          </svg>
-          <p>One widely used score actively ranks higher-risk patients as healthier</p>
-        </div>
-        <div class="glass-card problem-mini-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
-          <p>Standard AI models give predictions nobody can explain</p>
-        </div>
-        <div class="glass-card problem-mini-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <p>Off-the-shelf confidence estimates fail exactly the patients who need them most</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4 — Related Work and the Gap -->
-  <section id="gap">
-    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
-      <p class="intro-sentence">Several recent systems have approached pieces of this problem. None combine all four properties this problem requires.</p>
-      <div class="comparison-table-wrap">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>System</th>
-              <th>Normal-weight specific</th>
-              <th>Axes tied to real clinical tests</th>
-              <th>Reliable for the riskiest subgroup</th>
-              <th>Explainable</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Wearable + blood biomarker models (2026)</td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-            </tr>
-            <tr>
-              <td>Tree-based classifiers on national survey data (2025)</td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-            </tr>
-            <tr>
-              <td>Biopsy-based clustering studies (2024)</td>
-              <td><span class="dash">—</span></td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-            </tr>
-            <tr>
-              <td>Causal representation learning on genetic data (2025)</td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td><span class="dash">—</span></td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-            </tr>
-            <tr class="highlight-row">
-              <td>LMSIS (this work)</td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-              <td>
-                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 5 — Method and System Architecture -->
-  <section id="method">
-    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
-      <p class="intro-para">The system reads all fourteen blood values together as a single pattern, rather than checking each one against a normal range in isolation. From that pattern, it produces two coordinates — one standing in for insulin resistance, the other for liver fat — each mathematically locked to a real, independently measured clinical test, so the coordinates always increase in the same direction as the disease they represent.</p>
+  <!-- The Blindspot -->
+  <section id="blindspot">
+    <div class="container hidden">
+      <h2 class="text-gradient-red" style="font-size: 64px; text-align: center; margin-bottom: 80px;">The BMI Blindspot</h2>
       
-      <!-- System Architecture Diagram -->
-      <div class="architecture-diagram">
-        <div class="diag-node node-inputs">
-          <span>14 blood biomarkers + age, sex, ancestry</span>
+      <div style="display: flex; justify-content: center; gap: 150px; align-items: flex-end; margin-top: 40px;">
+        <!-- Standard BMI -->
+        <div class="bento hidden" style="width: 300px; padding: 40px; text-align: center; transition-delay: 0.2s;">
+          <div style="width: 140px; height: 300px; border: 4px solid var(--border); border-radius: 70px 70px 20px 20px; background: rgba(0,0,0,0.4); margin: 0 auto;"></div>
+          <div class="num" style="font-size: 32px; margin-top: 30px;">BMI 22</div>
+          <p style="color: var(--muted); margin-top: 10px;">"Healthy"</p>
+        </div>
+
+        <!-- Ectopic Fat -->
+        <div class="bento hidden" style="width: 300px; padding: 40px; text-align: center; transition-delay: 0.4s; position: relative;">
+          <div style="width: 140px; height: 300px; border: 4px solid var(--border); border-radius: 70px 70px 20px 20px; background: rgba(0,0,0,0.4); margin: 0 auto; position: relative;">
+            <!-- Visceral fat indicator -->
+            <div style="width: 50px; height: 50px; background: var(--amber); border-radius: 50%; position: absolute; top: 120px; left: 45px; box-shadow: 0 0 40px var(--amber); opacity: 0.9; animation: pulse 2s infinite;"></div>
+          </div>
+          <div class="num text-gradient-red" style="font-size: 32px; margin-top: 30px;">BMI 22</div>
+          <p style="color: var(--amber); font-weight: 600; margin-top: 10px;">Hidden Steatosis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Engine -->
+  <section id="engine">
+    <div class="container">
+      <h2 class="hidden" style="font-size: 64px; text-align: center;">The Engine: DA-SS-iVAE</h2>
+      <p class="hidden" style="text-align: center; font-size: 24px; color: var(--muted); margin-top: 20px; transition-delay: 0.2s;">Mapping 14 routine biomarkers into an identifiable latent manifold.</p>
+      
+      <div class="bento hidden svg-wrapper" style="margin-top: 60px; padding: 0; transition-delay: 0.4s; background: linear-gradient(135deg, rgba(10,14,24,0.8), rgba(5,8,15,0.9));">
+        <img src="assets/model_pipeline_animated.svg" alt="Model Pipeline Engine" style="padding: 40px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- The Atlas -->
+  <section id="atlas">
+    <div class="container">
+      <h2 class="hidden" style="font-size: 64px; text-align: center;">The Latent Metabolic Atlas</h2>
+      <p class="hidden" style="text-align: center; font-size: 24px; color: var(--muted); margin-top: 20px; transition-delay: 0.2s;">Revealing the 4 hidden phenotypes of Normal-BMI adults.</p>
+      
+      <div class="bento hidden svg-wrapper" style="margin-top: 60px; padding: 0; transition-delay: 0.4s; background: linear-gradient(135deg, rgba(10,14,24,0.8), rgba(5,8,15,0.9));">
+        <img src="assets/metabolic_atlas_animated.svg" alt="Metabolic Atlas Map" style="padding: 40px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- The Proof -->
+  <section id="proof">
+    <div class="container">
+      <h2 class="hidden" style="font-size: 64px; margin-bottom: 20px;">The Proof</h2>
+      <p class="hidden" style="font-size: 24px; color: var(--muted); margin-bottom: 80px; max-width: 800px; transition-delay: 0.2s;">Validated against FibroScan® ultrasound elastography on patients entirely outside the training distribution.</p>
+      
+      <div class="bento hidden" style="transition-delay: 0.4s; padding: 80px;">
+        <!-- LMSIS -->
+        <div class="neon-row">
+          <div class="neon-label" style="color: var(--text);">LMSIS (OOD)</div>
+          <div class="neon-track">
+            <div class="neon-bar" data-width="72%" style="background: var(--teal); color: var(--teal);"></div>
+          </div>
+          <div class="neon-value num text-gradient-teal">ρ = 0.582</div>
         </div>
         
-        <div class="diag-node node-encoder">
-          <span>Encoder</span>
+        <!-- Standard ML -->
+        <div class="neon-row" style="margin-top: 60px;">
+          <div class="neon-label">Standard ML</div>
+          <div class="neon-track">
+            <div class="neon-bar" data-width="43%" style="background: var(--muted); color: var(--muted);"></div>
+          </div>
+          <div class="neon-value num" style="color: var(--muted);">ρ = 0.350</div>
         </div>
-        
-        <div class="diag-node node-latent">
-          <span>2D metabolic coordinate</span>
-          <div class="latent-circle-row">
-            <div class="latent-circle z1">z₁</div>
-            <div class="latent-circle z2">z₂</div>
-          </div>
-        </div>
-        
-        <div class="diag-column">
-          <div class="diag-node node-anchor-ir">
-            <span>Insulin-resistance anchor</span>
-          </div>
-          <div class="diag-node node-anchor-stea">
-            <span>Liver-fat anchor</span>
-          </div>
-          <div class="diag-node node-decoder">
-            <span>Decoder</span>
-          </div>
-        </div>
-        
-        <div class="diag-column">
-          <div class="diag-node node-calibration">
-            <span>Per-group confidence calibration</span>
-          </div>
-          <div class="diag-node node-route">
-            <span>Route back to a healthy position</span>
-          </div>
-        </div>
-
-        <!-- Inline SVG arrows that animate drawing on scroll -->
-        <svg class="diag-link-svg" viewBox="0 0 1050 350">
-          <path id="path-1" class="link-line muted" d="M 190 175 L 235 175" />
-          <path id="path-2" class="link-line muted" d="M 345 175 L 385 175" />
-          <path id="path-3" class="link-line amber" d="M 525 145 C 545 130, 560 90, 600 90" />
-          <path id="path-4" class="link-line blue" d="M 525 175 L 600 175" />
-          <path id="path-5" class="link-line muted" d="M 525 205 C 545 220, 560 260, 600 260" />
-          <path id="path-6" class="link-line muted" d="M 525 155 C 555 125, 780 120, 830 120" />
-          <path id="path-7" class="link-line teal" d="M 525 195 C 555 225, 780 230, 830 230" />
-        </svg>
       </div>
+    </div>
+  </section>
 
-      <!-- Technical Details Expander Pattern -->
-      <div class="toggle-trigger" onclick="toggleDetails()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-        <span>+ Technical details</span>
-      </div>
+  <!-- Conformal Confidence -->
+  <section id="conformal">
+    <div class="container">
+      <h2 class="hidden" style="font-size: 64px; margin-bottom: 20px;">Trustworthy Confidence</h2>
+      <p class="hidden" style="font-size: 24px; color: var(--muted); margin-bottom: 80px; max-width: 800px; transition-delay: 0.2s;">Conformal prediction mathematically guarantees bounds, even for the highest-risk outliers.</p>
       
-      <div class="expand-panel">
-        <div class="panel-content">
-          <p>The architecture is a Dual-Anchored Semi-Supervised Identifiable Variational Autoencoder (DA-SS-iVAE). Identifiability follows from conditioning the latent prior on demographic covariates, per Khemakhem et al. (2020). Each anchor network is constrained to strictly positive weights via a Softplus reprojection, guaranteeing monotonicity between each coordinate and its clinical target. The steatosis anchor trains semi-supervised through a binary availability mask, since imaging-derived labels exist only for a subset of participants. Per-subgroup uncertainty uses Mondrian conformal prediction, stratified by phenotypic quadrant, directly addressing the subgroup coverage impossibility result of Barber et al. (2023). Intervention pathways are geodesics on the Riemannian manifold induced by the decoder Jacobian, projected back to biomarker space.</p>
-          
-          <table class="details-table">
-            <tbody>
-              <tr>
-                <td>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
-                    <line x1="5" y1="19" x2="19" y2="19"></line>
-                    <line x1="5" y1="5" x2="5" y2="19"></line>
-                    <polyline points="19 19 15 15"></polyline>
-                  </svg>
-                  latent dimension
-                </td>
-                <td>2 (fixed latent dimension)</td>
-              </tr>
-              <tr>
-                <td>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
-                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                  </svg>
-                  hidden layer sizes
-                </td>
-                <td>[128, 64, 32] (for all MLP components)</td>
-              </tr>
-              <tr>
-                <td>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
-                    <line x1="12" y1="3" x2="12" y2="21"></line>
-                    <line x1="6" y1="7" x2="18" y2="7"></line>
-                    <path d="M6 7A6 6 0 0 0 12 13A6 6 0 0 0 18 7"></path>
-                  </svg>
-                  loss weights
-                </td>
-                <td>&lambda;₁ = 10.0, &lambda;₂ = 5.0, &lambda;₃ = 0.1</td>
-              </tr>
-              <tr>
-                <td>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  training epochs
-                </td>
-                <td>150 (early stopping triggered at epoch &approx; 70-80)</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="grid-2 hidden" style="transition-delay: 0.4s;">
+        <!-- Standard -->
+        <div class="bento" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <div class="num" style="font-size: 80px; color: var(--muted); margin-bottom: 40px;">81.6%</div>
+          <div style="width: 100px; height: 250px; background: rgba(255,255,255,0.03); border-radius: 20px; position: relative; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
+            <div class="neon-bar" data-width="100%" style="width: 100%; height: 0; bottom: 0; left: 0; background: var(--muted); color: var(--muted); transition: height 1.5s ease-out;"></div>
+          </div>
+          <h3 style="margin-top: 40px; color: var(--muted);">Standard Bounds</h3>
+        </div>
+
+        <!-- Conformal -->
+        <div class="bento" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <div class="num text-gradient-teal" style="font-size: 80px; margin-bottom: 40px;">90.4%</div>
+          <div style="width: 100px; height: 250px; background: rgba(255,255,255,0.03); border-radius: 20px; position: relative; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
+            <!-- Custom observer logic to animate height instead of width -->
+            <div class="neon-bar" data-height="100%" style="width: 100%; height: 0; bottom: 0; left: 0; background: var(--teal); color: var(--teal); box-shadow: 0 0 20px var(--teal); transition: height 1.5s ease-out;"></div>
+          </div>
+          <h3 style="margin-top: 40px;">Conformal iVAE</h3>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 6 — Live Interactive Demo -->
-  <section id="demo">
-    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
-      <h2>See it for yourself</h2>
-      <p class="demo-desc">Choose a patient profile and watch where they land.</p>
-      
-      <div class="demo-widget">
-        <!-- Profile Selection Button Column -->
-        <div class="demo-controls">
-          <button class="profile-pill pill-healthy" onclick="selectDemoProfile('healthy', this)">Healthy</button>
-          <button class="profile-pill pill-ir" onclick="selectDemoProfile('ir', this)">IR-dominant</button>
-          <button class="profile-pill pill-stea" onclick="selectDemoProfile('steatosis', this)">Steatosis-dominant</button>
-          <button class="profile-pill pill-dual" onclick="selectDemoProfile('dual', this)">Dual-burden</button>
-        </div>
-        
-        <!-- Map and Readout display -->
-        <div class="demo-display">
-          <div class="demo-banner-box">
-            <div id="demo-banner" class="demo-banner">Select a patient profile to analyze metabolic risk map</div>
-          </div>
-          
-          <!-- SVG Latent Map (640x400 viewBox) -->
-          <svg class="demo-map-svg" viewBox="0 0 640 400" id="demo-map">
-            <!-- Background quadrants (low opacity, flat fill) -->
-            <!-- Q2: Steatosis-dominant (Top Left, Blue Tint) -->
-            <rect x="0" y="0" width="320" height="200" fill="var(--liver-risk)" opacity="0.04" />
-            <!-- Q1: Dual-burden (Top Right, Red Tint) -->
-            <rect x="320" y="0" width="320" height="200" fill="var(--dual-risk)" opacity="0.04" />
-            <!-- Q3: Metabolically Healthy (Bottom Left, Green Tint) -->
-            <rect x="0" y="200" width="320" height="200" fill="var(--healthy)" opacity="0.04" />
-            <!-- Q4: IR-dominant (Bottom Right, Yellow Tint) -->
-            <rect x="320" y="200" width="320" height="200" fill="var(--ir-risk)" opacity="0.04" />
-
-            <!-- Dashed threshold lines crossing at (320, 200) -->
-            <line x1="320" y1="0" x2="320" y2="400" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="6,6" />
-            <line x1="0" y1="200" x2="640" y2="200" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="6,6" />
-
-            <!-- Axis Labels -->
-            <text x="490" y="380" fill="var(--muted)" font-size="11" font-family="'JetBrains Mono', sans-serif" font-weight="600">Insulin resistance -></text>
-            <text x="25" y="90" fill="var(--muted)" font-size="11" font-family="'JetBrains Mono', sans-serif" font-weight="600" transform="rotate(-90 25 90)">Liver fat ^</text>
-
-            <!-- Static population density scatter -->
-            <g id="population-scatter"></g>
-
-            <!-- Dynamic Intervention Route Line -->
-            <path id="demo-route-line" class="demo-route-path" fill="none" stroke="var(--healthy)" stroke-width="2.5" stroke-dasharray="5,5" d="" />
-
-            <!-- Safe Zone Marker (Healthy Anchor) -->
-            <g id="demo-safe-zone" style="opacity: 0; transition: opacity 0.5s;">
-              <circle cx="216" cy="256" r="10" fill="none" stroke="var(--healthy)" stroke-width="2" />
-              <circle cx="216" cy="256" r="4" fill="var(--healthy)" />
-              <text x="232" y="260" fill="var(--healthy)" font-size="11" font-weight="600">safe zone</text>
-            </g>
-
-            <!-- Dynamic Waypoint text and circle -->
-            <g id="demo-waypoint-group"></g>
-
-            <!-- Animated Patient Pin -->
-            <g id="demo-pin-group" class="demo-pin" transform="translate(320, 200)" style="opacity: 0;">
-              <circle cx="0" cy="0" r="16" fill="currentColor" opacity="0.15" class="demo-pin-glow" />
-              <path d="M0 -12 C-5 -12 -9 -8 -9 -3 C-9 3 0 12 0 12 C0 12 9 3 9 -3 C9 -8 5 -12 0 -12 Z" fill="currentColor" />
-              <circle cx="0" cy="-3" r="3" fill="#050810" />
-            </g>
-          </svg>
-
-          <!-- Row of Three Metric Cards -->
-          <div class="demo-readout-panel" id="demo-readout">
-            <div class="glass-card readout-card">
-              <span class="readout-label">Insulin Resistance Score</span>
-              <span class="readout-val mono-num" id="readout-score">—</span>
-            </div>
-            <div class="glass-card readout-card">
-              <span class="readout-label">Liver Fat Content</span>
-              <span class="readout-val mono-num" id="readout-liverfat">—</span>
-            </div>
-            <div class="glass-card readout-card">
-              <span class="readout-label">Metabolic Risk</span>
-              <span class="readout-val mono-num" id="readout-risk">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="demo-widget-footer">
-        <p>This is a simplified, illustrative preview using four representative profiles. The full clinical interface accepts a complete blood panel and computes a result specific to that exact patient.</p>
-        <a href="https://github.com/mysticai11/TYPE2-PHENOTYPE" class="btn btn-glass" target="_blank">Open the full interactive dashboard</a>
-      </div>
+  <!-- Final Footer -->
+  <section id="footer-section" style="min-height: auto; padding-top: 0;">
+    <div class="container hidden">
+      <h1 style="font-size: 72px; text-align: center; margin-bottom: 20px;">Normal BMI is not metabolic health.</h1>
+      <h1 class="text-gradient-teal" style="font-size: 72px; text-align: center; margin-bottom: 80px;">LMSIS makes the invisible, identifiable.</h1>
     </div>
   </section>
 
-  <!-- SECTION 7 — Results -->
-  <section id="results">
-    <div class="reveal" style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
-      <p class="intro-line">Performance was evaluated against five widely used clinical scores and validated on data the model never saw during training.</p>
-      
-      <div class="results-top-row">
-        <!-- Results glance table -->
-        <div class="glass-card results-table-card">
-          <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Results at a glance</h3>
-          <table class="results-glance-table">
-            <tbody>
-              <tr>
-                <td>Liver-fat detection accuracy</td>
-                <td>0.841 AUROC</td>
-              </tr>
-              <tr>
-                <td>Reliability for the highest-risk subgroup</td>
-                <td>90.4% coverage (vs. 81.6% baseline)</td>
-              </tr>
-              <tr>
-                <td>Performance on unseen, later-collected data</td>
-                <td>&rho; = 0.583</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- SVG Bar Chart -->
-        <div class="glass-card results-chart-card">
-          <!-- LMSIS -->
-          <div class="result-bar-row">
-            <div class="r-bar-label active">LMSIS (this work)</div>
-            <div class="r-bar-bg">
-              <div class="r-bar teal" style="width: 83.3%;">
-                <span class="r-bar-val">+0.583</span>
-              </div>
-            </div>
-          </div>
-          <!-- FLI -->
-          <div class="result-bar-row">
-            <div class="r-bar-label">FLI</div>
-            <div class="r-bar-bg">
-              <div class="r-bar grey" style="width: 55%;">
-                <span class="r-bar-val">+0.385</span>
-              </div>
-            </div>
-          </div>
-          <!-- TyG -->
-          <div class="result-bar-row">
-            <div class="r-bar-label">TyG</div>
-            <div class="r-bar-bg">
-              <div class="r-bar grey" style="width: 44.6%;">
-                <span class="r-bar-val">+0.312</span>
-              </div>
-            </div>
-          </div>
-          <!-- HSI -->
-          <div class="result-bar-row">
-            <div class="r-bar-label">HSI</div>
-            <div class="r-bar-bg">
-              <div class="r-bar grey" style="width: 13.1%;">
-                <span class="r-bar-val">+0.092</span>
-              </div>
-            </div>
-          </div>
-          <!-- LFS -->
-          <div class="result-bar-row" style="position: relative; margin-top: 10px;">
-            <div class="r-bar-label">LFS</div>
-            <div class="r-bar-bg">
-              <!-- pointing backwards -->
-              <div class="r-bar red" style="width: 7.3%;">
-                <span class="r-bar-val left-side">-0.051</span>
-              </div>
-            </div>
-          </div>
-          
-          <p style="font-size: 0.95rem; color: var(--muted); margin-top: 1rem; line-height: 1.4;">One widely used clinical score ranks higher-risk patients as healthier than lower-risk ones — the opposite of its intended purpose.</p>
-        </div>
-      </div>
-
-      <div class="results-middle-row">
-        <!-- Before / After Conformal Coverage -->
-        <div class="glass-card results-subgroup-cal">
-          <div class="cal-bars-wrap" style="justify-content: center; gap: 6rem;">
-            <div class="cal-bar-container">
-              <span class="cal-bar-val mono-num">81.6%</span>
-              <div class="cal-bar-bg">
-                <div class="cal-bar grey" style="height: 81.6%;"></div>
-              </div>
-              <span class="cal-bar-lbl">Standard</span>
-            </div>
-            <div class="cal-bar-container">
-              <span class="cal-bar-val mono-num" style="color: var(--healthy); text-shadow: 0 0 10px rgba(0, 196, 125, 0.4);">90.4%</span>
-              <div class="cal-bar-bg">
-                <div class="cal-bar teal" style="height: 90.4%;"></div>
-              </div>
-              <span class="cal-bar-lbl">Mondrian</span>
-            </div>
-          </div>
-          <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.4; text-align: center; margin-top: 1.5rem;">Standard uncertainty estimates quietly fail the patients who need them most. A targeted correction restores their reliability.</p>
-        </div>
-
-        <!-- Symbolic regression callout card -->
-        <div class="glass-card results-sidefinding-card">
-          <h4>An interesting side-finding</h4>
-          <p>Symbolic regression applied to the model's internal mapping recovered a simple closed-form expression showing that cardiovascular risk rises sharply only when both coordinates are elevated together — not from either one alone. The model discovered this structure on its own; it was not built in by hand.</p>
-        </div>
-      </div>
-
-      <!-- Two-card row (unseen holdouts) -->
-      <div class="tested-cards-row">
-        <div class="glass-card tested-card">
-          <span style="font-size: 0.95rem; font-weight: 600; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em;">Tested beyond the training data</span>
-          <p>Evaluated two years after training, on a separate survey cycle</p>
-          <div id="stat-temporal" class="mono-num" style="font-size: 2.2rem; color: var(--healthy); font-weight: 700;">&rho; = 0.583</div>
-        </div>
-        <div class="glass-card tested-card blue-theme">
-          <span style="font-size: 0.95rem; font-weight: 600; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em;">Tested beyond the training data</span>
-          <p>Evaluated on an independent demographic subgroup</p>
-          <div id="stat-population" class="mono-num" style="font-size: 2.2rem; color: var(--liver-risk); font-weight: 700;">&rho; = 0.557</div>
-        </div>
-      </div>
-
-      <!-- Centered National Prevalence Estimate -->
-      <div class="prevalence-block">
-        <div id="stat-prevalence" class="prevalence-glow mono-num" style="font-weight: 700; line-height: 1.1;">
-          <span id="stat-prev-pct">29.89</span>%
-          <span style="font-size: 1.6rem; display: block; margin-top: 0.5rem; opacity: 0.85; font-weight: 500;">23.91M people [95% CI: 0.00M, 64.36M]</span>
-        </div>
-        <p class="caption" style="font-size: 1.05rem; color: var(--muted); max-width: 650px; line-height: 1.5;">(this range reflects the limits of the underlying survey sample — see the full report for the complete uncertainty analysis)</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 8 — Validation and Testing -->
-  <section id="validation">
-    <div class="reveal" style="width: 100%; max-width: 1100px;">
-      <div class="validation-grid">
-        <div class="glass-card validation-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-          <p>15 automated tests verifying core model behavior, all passing</p>
-        </div>
-        <div class="glass-card validation-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <polyline points="23 4 12.45 14.55 7.55 9.65 1 16.2"></polyline>
-            <polyline points="17 4 23 4 23 10"></polyline>
-          </svg>
-          <p>Evaluated with fixed random seeds across multiple independent runs for reproducibility</p>
-        </div>
-        <div class="glass-card validation-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-          </svg>
-          <p>Full source code openly available for inspection and replication</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 9 — Anticipated Questions -->
-  <section id="questions">
-    <div class="reveal" style="width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center;">
-      <h2 style="font-size: 2.2rem; margin-bottom: 2.5rem; text-align: center;">Questions this work is likely to raise — answered here</h2>
-      
-      <div class="faq-container">
-        <!-- FAQ 1 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>Is this system ready to be used on real patients?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>No. This is a research prototype intended to demonstrate technical feasibility, not a diagnostic device. It has not undergone clinical trials, regulatory review, or prospective validation, and using it to direct real patient care would be inappropriate at this stage.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>How is this different from a doctor simply reviewing a normal blood panel?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>A doctor typically checks each value against its own reference range independently. The hidden risk this system targets often shows up only as a combination — several values sitting just inside their individual normal ranges at once, in a pattern that signals dysfunction collectively even though none of them individually crosses a threshold. The model reads all fourteen values together as a single pattern, which single-value screening cannot do.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>Why not just use a simpler, off-the-shelf model like Random Forest?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Tree-based models trained on the same data achieve a comparable or marginally higher raw correlation with liver fat. But they produce only a single number with no further structure: no biologically meaningful coordinate system, no per-subgroup confidence guarantee, and no way to extract an explanation of how the prediction was reached. At the clinical decision threshold that matters, this system achieves higher classification performance than those simpler models, while also providing structure a single-output model cannot.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>How do you know the two coordinates actually mean insulin resistance and liver fat, rather than being arbitrary numbers?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Two safeguards are built into the architecture. Each coordinate passes through a monotone-constrained network trained against a real, independently measured clinical value, so it is mathematically forced to increase exactly when that measurement increases. The underlying model is also conditioned on patient demographics specifically to satisfy a published identifiability theorem, which prevents the coordinate axes from being an arbitrary, unrepeatable rotation.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>How do you know the confidence ranges are trustworthy, especially for the highest-risk patients?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Standard uncertainty methods are calibrated to the population on average, which is precisely what allows them to quietly fail an above-average-risk minority — a known mathematical limitation, not a flaw specific to this dataset. This system calibrates uncertainty separately within each risk subgroup, which is shown to restore reliable coverage specifically where the standard approach fails.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>Could this just be overfit to one dataset?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>It was evaluated on a separate group of patients collected in a later, independent survey cycle the model never saw during training, and separately on a demographic subgroup outside its primary training composition. Performance held up in both cases, which is the standard test for whether a pattern generalizes rather than memorizes.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>Why is the national prevalence estimate given with such a wide range?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>That width honestly reflects how few patients in a national survey fall into this specific, narrowly defined subgroup — a property of the underlying sample size, not a flaw in the model. The estimate is never reported without that range, because the range is the more scientifically meaningful number.</p>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="faq-card glass-card">
-          <div class="faq-question">
-            <h4>What is the single biggest limitation of this work right now?</h4>
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Every patient in the dataset was measured exactly once. The system has not yet been shown to predict what happens to a real patient over time, only that it can recover a snapshot of their current hidden state. Tracking real patients forward is the most important next step.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 10 — Key Contributions -->
-  <section id="contributions">
-    <div class="reveal" style="width: 100%; max-width: 950px;">
-      <div class="contributions-list">
-        <div class="glass-card contribution-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
-          <p>A generative model whose internal coordinates are mathematically anchored to real, independently verifiable clinical measurements, rather than left as an unexplainable black box.</p>
-        </div>
-        <div class="glass-card contribution-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          <p>A calibration method that restores reliable confidence estimates specifically for the highest-risk patient subgroup, where standard methods are shown to fail.</p>
-        </div>
-        <div class="glass-card contribution-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-            <polyline points="2 17 12 22 22 17"></polyline>
-            <polyline points="2 12 12 17 22 12"></polyline>
-          </svg>
-          <p>An interpretability layer that extracts plain mathematical formulas describing how the model's internal coordinates relate to real biomarkers.</p>
-        </div>
-        <div class="glass-card contribution-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-          </svg>
-          <p>A complete, tested, end-to-end research system — from data pipeline through model to an interactive clinical interface.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 11 — Limitations and Future Work -->
-  <section id="limits">
-    <div class="reveal" style="width: 100%; max-width: 1100px;">
-      <div class="limits-grid">
-        <!-- Left: What we don't yet know -->
-        <div class="glass-card limits-card left-card">
-          <h3>What we don't yet know</h3>
-          <ul>
-            <li>All data comes from a single national health survey.</li>
-            <li>Every measurement is a one-time snapshot, not tracked over time.</li>
-            <li>This is a research prototype, not a diagnostic device.</li>
-          </ul>
-        </div>
-        
-        <!-- Right: What's next -->
-        <div class="glass-card limits-card right-card">
-          <h3>What's next</h3>
-          <ul>
-            <li>Validation on a fully independent, separately collected cohort.</li>
-            <li>Tracking real patients over time to test predictive value.</li>
-            <li>Expanding validation across a wider range of population groups.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 12 — Team and Acknowledgements -->
-  <section id="team">
-    <div class="reveal team-block">
-      <div class="names" style="margin-bottom: 20px;">
-        <h3 style="color: var(--teal); margin-bottom: 15px;">Project Team</h3>
-        <p>Karamjeet Singh (Roll No. 5244)</p>
-        <p>Sarandeep Singh (Roll No. 5244)</p>
-        <p>Ubaid Ahmad (Roll No. 5255)</p>
-        <p>Aiman Younus Dar (Roll No. 222176)</p>
-      </div>
-      <div class="ack">
-        <h4 style="color: var(--teal); margin-bottom: 10px;">Institution</h4>
-        <p>SHMM Government Degree College Anantnag</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 13 — Footer -->
   <footer>
-    <div class="footer-subtitle">LMSIS — built for the intersection of clinical insight and computational rigor.</div>
-    <ul class="footer-links">
-      <li><a href="https://github.com/mysticai11/TYPE2-PHENOTYPE" target="_blank">GitHub</a></li>
-      <li><a href="dissertation.pdf" target="_blank">Full Report</a></li>
-      <li><a href="mailto:contact@lmsis-project.org">Contact</a></li>
-    </ul>
+    <p style="color: var(--text); font-weight: 600;">Karamjeet Singh &bull; Sarandeep Singh &bull; Ubaid Ahmad &bull; Aiman Younus Dar</p>
+    <p>SHMM Government Degree College Anantnag</p>
   </footer>
 
-  <!-- Back to top button -->
-  <div class="back-to-top" id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </div>
-
   <script src="script.js"></script>
+  <!-- Small script addition to handle the vertical neon bar height animation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const verticalObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bar = entry.target;
+            if(bar.getAttribute('data-height')) {
+              bar.style.height = bar.getAttribute('data-height');
+            }
+            observer.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.neon-bar[data-height]').forEach(bar => verticalObserver.observe(bar));
+    });
+  </script>
 </body>
 </html>
