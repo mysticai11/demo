@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dots = Array.from(dotsContainer.querySelectorAll('.dots-nav-item'));
 
   // --- Accent Colors Mapping by Scene ---
+  // To match dot navigation colors with the theme of the active scene
   const sceneAccents = [
     'var(--healthy)', // Scene 1
     'var(--healthy)', // Scene 2
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update Sticky Nav Active Header Link
+    // Navigation maps scenes: Abstract (Scene 2), Method (Scene 5), Demo (Scene 6), Results (Scene 7), Questions (Scene 9)
     navLinks.forEach(link => link.classList.remove('active'));
     if (index === 1) {
       document.querySelector('a[href="#abstract"]').classList.add('active');
@@ -86,37 +88,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- 3. Keyboard Snap Handler ---
+  // --- 3. Keyboard Snap Handler (Tuned for tall scenes) ---
   window.addEventListener('keydown', (e) => {
     if (isScrolling) return;
 
+    const currentSection = sections[currentSectionIndex];
+    const rect = currentSection.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
     if (['ArrowDown', 'ArrowRight', ' ', 'PageDown'].includes(e.key)) {
-      if (currentSectionIndex < sections.length - 1) {
+      if (rect.bottom > viewportHeight + 10) {
         e.preventDefault();
-        scrollToSection(currentSectionIndex + 1);
+        isScrolling = true;
+        window.scrollBy({
+          top: viewportHeight * 0.8,
+          behavior: 'smooth'
+        });
+        setTimeout(() => { isScrolling = false; }, 400);
+      } else {
+        if (currentSectionIndex < sections.length - 1) {
+          e.preventDefault();
+          scrollToSection(currentSectionIndex + 1);
+        }
       }
     } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
-      if (currentSectionIndex > 0) {
+      if (rect.top < -10) {
         e.preventDefault();
-        scrollToSection(currentSectionIndex - 1);
+        isScrolling = true;
+        window.scrollBy({
+          top: -viewportHeight * 0.8,
+          behavior: 'smooth'
+        });
+        setTimeout(() => { isScrolling = false; }, 400);
+      } else {
+        if (currentSectionIndex > 0) {
+          e.preventDefault();
+          scrollToSection(currentSectionIndex - 1);
+        }
       }
     }
   });
-
-  // --- 4. IntersectionObserver for Natural Scrolling Sync ---
-  const sceneObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !isScrolling) {
-        const activeIdx = sections.indexOf(entry.target);
-        if (activeIdx !== -1) {
-          currentSectionIndex = activeIdx;
-          updateNavigationStates(activeIdx);
-        }
-      }
-    });
-  }, { threshold: 0.4 });
-
-  sections.forEach(section => sceneObserver.observe(section));
 
   // --- 5. Entrance Fade & Rise Animations ---
   const animObserver = new IntersectionObserver((entries) => {
@@ -172,8 +183,33 @@ document.addEventListener('DOMContentLoaded', () => {
     path.style.strokeDashoffset = length;
   });
 
-  // --- 8. Continuous Scroll-Linked Drawing and Chart Growing ---
+  // --- 8. Continuous Scroll-Linked Drawing, Chart Growing, and Active Section Scroll-Sync ---
   window.addEventListener('scroll', () => {
+    // Scroll Sync Active Section Detection (calculates section spanning the screen midpoint)
+    if (!isScrolling) {
+      const viewportMid = window.innerHeight / 2;
+      let activeIdx = 0;
+      let minDistance = Infinity;
+
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect();
+        if (rect.top <= viewportMid && rect.bottom >= viewportMid) {
+          activeIdx = i;
+          break;
+        }
+        const distance = Math.min(Math.abs(rect.top - viewportMid), Math.abs(rect.bottom - viewportMid));
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIdx = i;
+        }
+      }
+
+      if (activeIdx !== currentSectionIndex) {
+        currentSectionIndex = activeIdx;
+        updateNavigationStates(activeIdx);
+      }
+    }
+
     // Scene 5 Method Architecture Scroll-Link
     const s5 = document.getElementById('scene-5');
     if (s5) {
@@ -181,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewHeight = window.innerHeight;
       const totalRange = viewHeight + rect.height;
       const progress = Math.max(0, Math.min(1, (viewHeight - rect.top) / totalRange));
-      const drawProgress = Math.max(0, Math.min(1, (progress - 0.2) / 0.6));
+      const drawProgress = Math.max(0, Math.min(1, (progress - 0.2) / 0.6)); // Draw between 20% and 80% viewport progress
 
       const paths = s5.querySelectorAll('.draw-path');
       paths.forEach(path => {
@@ -197,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewHeight = window.innerHeight;
       const totalRange = viewHeight + rect.height;
       const progress = Math.max(0, Math.min(1, (viewHeight - rect.top) / totalRange));
-      const barProgress = Math.max(0, Math.min(1, (progress - 0.15) / 0.5));
+      const barProgress = Math.max(0, Math.min(1, (progress - 0.15) / 0.5)); // Animate bars between 15% and 65% progress
 
       // Horizontal Bar Chart
       const bars = s7.querySelectorAll('.bar-fill');
@@ -222,7 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- 9. Toggle Accordions ---
+  // --- 9. Toggle Detail Expanding Accordions (+ Technical details & FAQs) ---
+  // A generic function to toggle accordion height smoothly
   window.toggleAccordion = function(buttonElement, bodySelector) {
     const parent = buttonElement.closest('.accordion-parent') || buttonElement.parentElement;
     const body = parent.querySelector(bodySelector);
@@ -294,6 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardValFat = document.getElementById('demo-val-fat');
   const cardValRisk = document.getElementById('demo-val-risk');
 
+  // SVG coordinate projection
+  // Maps coordinates z1 (-3 to 3) to SVG X (40 to 600)
+  // Maps coordinates z2 (-3 to 3) to SVG Y (360 to 40)
   function projectX(z1) {
     return 320 + (z1 / 3) * 280;
   }
@@ -301,10 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return 200 - (z2 / 3) * 160;
   }
 
+  // Safe zone anchor center
   const safeX = projectX(-1.4);
   const safeY = projectY(-1.3);
 
   window.selectProfile = function(profileKey, buttonEl) {
+    // Manage active buttons
     document.querySelectorAll('.demo-pill-btn').forEach(btn => {
       btn.classList.remove('active');
       btn.style.borderColor = 'var(--border)';
@@ -315,29 +357,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const profile = profiles[profileKey];
     buttonEl.style.borderColor = profile.color;
 
+    // Project coordinates
     const targetX = projectX(profile.z1);
     const targetY = projectY(profile.z2);
 
+    // Position and show Pin
     pin.style.display = 'block';
     pin.setAttribute('cx', targetX);
     pin.setAttribute('cy', targetY);
     pin.setAttribute('fill', profile.color);
 
+    // Update banner text
     bannerName.innerText = profile.name.replace(/"/g, '');
     bannerName.style.color = profile.color;
     bannerDesc.innerText = profile.desc.replace(/"/g, '');
 
+    // Update metrics cards with counting animations
     animateValue(cardValIR, parseFloat(cardValIR.innerText) || 0, profile.score, 600, 1, '', '');
     animateValue(cardValFat, parseFloat(cardValFat.innerText) || 0, profile.liverFat, 600, 0, '', '');
     animateValue(cardValRisk, parseFloat(cardValRisk.innerText) || 0, profile.risk, 600, 0, '', '%');
 
+    // Handle Intervention Route path and waypoint label
     if (profile.hasRoute) {
       routePath.style.display = 'block';
       routePath.setAttribute('stroke', profile.color);
       
+      // Draw smooth curve (Quadratic Bezier) from profile position to safe zone
       const pathData = `M ${targetX} ${targetY} Q ${profile.routeControlX} ${profile.routeControlY} ${safeX} ${safeY}`;
       routePath.setAttribute('d', pathData);
 
+      // Position waypoint label near curve midpoint
+      // Q midpoint is roughly: B(0.5) = 0.25*P0 + 0.5*P1 + 0.25*P2
       const midX = 0.25 * targetX + 0.5 * profile.routeControlX + 0.25 * safeX;
       const midY = 0.25 * targetY + 0.5 * profile.routeControlY + 0.25 * safeY;
 

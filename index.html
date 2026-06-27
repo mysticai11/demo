@@ -175,57 +175,74 @@
       
       <!-- SVG Horizontal Architecture Diagram with Scroll-Linked Draw -->
       <div class="diagram-container animate-element">
-        <svg viewBox="0 0 1000 320" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Background grids/connectors -->
-          <path class="draw-path" d="M 180 80 H 260" stroke="var(--border)" stroke-width="2" />
-          <path class="draw-path" d="M 370 80 H 420" stroke="var(--border)" stroke-width="2" />
+        <svg viewBox="0 0 1000 380" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 1 2 L 7 5 L 1 8 Z" fill="rgba(74, 99, 128, 0.85)" />
+            </marker>
+          </defs>
+
+          <!-- Background connecting paths -->
+          <path class="draw-path" d="M 180 180 H 220" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
+          <path class="draw-path" d="M 330 180 H 370" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
           
           <!-- Branching paths from coordinate -->
-          <path class="draw-path" d="M 520 80 Q 570 80 570 50 H 620" stroke="var(--border)" stroke-width="2" />
-          <path class="draw-path" d="M 520 80 Q 570 80 570 110 H 620" stroke="var(--border)" stroke-width="2" />
-          <path class="draw-path" d="M 520 80 Q 570 80 570 170 H 620" stroke="var(--border)" stroke-width="2" />
+          <path class="draw-path" d="M 500 180 C 525 180, 525 60, 550 60" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
+          <path class="draw-path" d="M 500 180 H 550" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
+          <path class="draw-path" d="M 500 180 C 525 180, 525 300, 550 300" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
 
           <!-- Post decoder path -->
-          <path class="draw-path" d="M 720 170 H 770" stroke="var(--border)" stroke-width="2" />
-          <path class="draw-path" d="M 870 170 H 920" stroke="var(--border)" stroke-width="2" />
+          <path class="draw-path" d="M 660 300 H 700" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
+          <path class="draw-path" d="M 830 300 H 860" stroke="rgba(74, 99, 128, 0.65)" stroke-width="2.5" marker-end="url(#arrow)" />
 
-          <!-- Nodes -->
+          <!-- Nodes using foreignObject for text wrapping and styling -->
           <!-- Node 1: Biomarkers -->
-          <rect x="10" y="45" width="170" height="70" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="95" y="80" fill="var(--text)" font-size="10" font-weight="500" text-anchor="middle">"14 blood biomarkers + age, sex, ancestry"</text>
+          <foreignObject x="10" y="140" width="170" height="80">
+            <div class="dia-node">"14 blood biomarkers + age, sex, ancestry"</div>
+          </foreignObject>
 
           <!-- Node 2: Encoder -->
-          <rect x="260" y="45" width="110" height="70" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="315" y="85" fill="var(--text)" font-size="12" font-weight="500" text-anchor="middle">"Encoder"</text>
+          <foreignObject x="220" y="140" width="110" height="80">
+            <div class="dia-node">"Encoder"</div>
+          </foreignObject>
 
-          <!-- Node 3: 2D coordinate -->
-          <rect x="420" y="45" width="100" height="70" rx="10" fill="var(--panel)" stroke="var(--healthy)" stroke-width="2" />
-          <text x="470" y="85" fill="var(--text)" font-size="10" font-weight="600" text-anchor="middle">"2D metabolic coordinate"</text>
+          <!-- Node 3: 2D Coordinate -->
+          <foreignObject x="370" y="140" width="130" height="80">
+            <div class="dia-node dia-node-healthy">"2D metabolic coordinate"</div>
+          </foreignObject>
 
           <!-- Branch 1: IR Anchor -->
-          <rect x="620" y="20" width="180" height="50" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="710" y="50" fill="var(--text)" font-size="11" font-weight="500" text-anchor="middle">"Insulin-resistance anchor"</text>
+          <foreignObject x="550" y="20" width="180" height="80">
+            <div class="dia-node">"Insulin-resistance anchor"</div>
+          </foreignObject>
 
           <!-- Branch 2: Liver Fat Anchor -->
-          <rect x="620" y="85" width="180" height="50" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="710" y="115" fill="var(--text)" font-size="11" font-weight="500" text-anchor="middle">"Liver-fat anchor"</text>
+          <foreignObject x="550" y="140" width="180" height="80">
+            <div class="dia-node">"Liver-fat anchor"</div>
+          </foreignObject>
 
           <!-- Branch 3: Decoder -->
-          <rect x="620" y="145" width="100" height="50" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="670" y="175" fill="var(--text)" font-size="12" font-weight="500" text-anchor="middle">"Decoder"</text>
+          <foreignObject x="550" y="260" width="110" height="80">
+            <div class="dia-node">"Decoder"</div>
+          </foreignObject>
 
-          <!-- Node 4: Confidence -->
-          <rect x="770" y="145" width="100" height="50" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <text x="820" y="175" fill="var(--text)" font-size="9" font-weight="500" text-anchor="middle">"Per-group confidence calibration"</text>
+          <!-- Node 4: Confidence Calibration -->
+          <foreignObject x="700" y="260" width="130" height="80">
+            <div class="dia-node">"Per-group confidence calibration"</div>
+          </foreignObject>
 
-          <!-- Node 5: Route back -->
-          <rect x="920" y="145" width="70" height="50" rx="10" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-          <!-- Map pin SVG icon embedded within diagram -->
-          <g transform="translate(935, 155) scale(0.6)">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="var(--healthy)" stroke-width="2" fill="none" />
-            <circle cx="12" cy="10" r="3" fill="var(--healthy)" />
-          </g>
-          <text x="955" y="185" fill="var(--text)" font-size="8" font-weight="500" text-anchor="middle">"Route back to a healthy position"</text>
+          <!-- Node 5: Route Back -->
+          <foreignObject x="860" y="260" width="130" height="80">
+            <div class="dia-node">
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--healthy)" stroke-width="2" style="width: 18px; height: 18px; flex-shrink: 0;">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" fill="var(--healthy)" />
+                </svg>
+                <span style="font-size: 0.76rem; line-height: 1.25;">"Route back to a healthy position"</span>
+              </div>
+            </div>
+          </foreignObject>
         </svg>
       </div>
 
