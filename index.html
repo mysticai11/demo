@@ -9,26 +9,17 @@
 </head>
 <body>
 
-<!-- Scroll Progress -->
-<div class="scroll-progress" id="scroll-progress"></div>
+<!-- Slide Header -->
+<header class="slide-header">
+  <span class="slide-logo">LMSIS — Metabolic Screening Presentation</span>
+  <span class="slide-counter" id="slide-counter">Slide 1 / 13</span>
+</header>
 
-<!-- Top Navigation -->
-<nav class="top-nav">
-  <span class="nav-brand">LMSIS — Latent Metabolic State Inference System</span>
-  <ul class="nav-links">
-    <li><a href="#problem" data-nav="problem">Problem</a></li>
-    <li><a href="#gap" data-nav="gap">Gap</a></li>
-    <li><a href="#dataset" data-nav="dataset">Dataset</a></li>
-    <li><a href="#architecture" data-nav="architecture">Model</a></li>
-    <li><a href="#latent" data-nav="latent">Latent Space</a></li>
-    <li><a href="#results" data-nav="results">Results</a></li>
-    <li><a href="#equity" data-nav="equity">Equity</a></li>
-    <li><a href="#contributions" data-nav="contributions">Contributions</a></li>
-  </ul>
-</nav>
+<!-- Slide Progress Bar -->
+<div class="slide-progress" id="slide-progress" style="width: 0%;"></div>
 
-<!-- Dots Navigation -->
-<div class="dots-nav" id="dots-nav"></div>
+<!-- Slide Deck Container -->
+<div id="slide-deck">
 
 <!-- ══════════════════════════════════════════════════════════
      SCENE 01 — HERO
@@ -1174,6 +1165,18 @@
     NHANES data © CDC/NCHS · All model code open-source under MIT License
   </div>
 </section>
+
+</div> <!-- End #slide-deck -->
+
+<!-- Slide Navigation Controls -->
+<div class="slide-nav">
+  <button class="nav-arrow" id="prev-btn" aria-label="Previous slide" disabled>&larr;</button>
+  <div class="nav-dots" id="nav-dots"></div>
+  <button class="nav-arrow" id="next-btn" aria-label="Next slide">&rarr;</button>
+</div>
+
+<!-- Keyboard navigation hint -->
+<div class="key-hint">Use Left/Right/Up/Down arrows, Space or Mouse Scroll</div>
 
 <script src="script.js"></script>
 </body>
